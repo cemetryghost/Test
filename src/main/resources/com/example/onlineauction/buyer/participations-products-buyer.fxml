@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorPaneparticipationsBuyer" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.ParticipationsBuyerController">
+   <children>
+      <TableView fx:id="TableViewParticipationsBuyer" layoutY="224.0" prefHeight="324.0" prefWidth="679.0" stylesheets="@../../../../style.css">
+         <columns>
+            <TableColumn fx:id="col_nameLotsParticipationsBuyer" prefWidth="159.33331298828125" text="Наименование товара" />
+            <TableColumn fx:id="col_currentPriceLotsParticipationsBuyer" minWidth="0.0" prefWidth="126.6666259765625" text="Текущая цена" />
+            <TableColumn fx:id="col_betParticipationsBuyer" minWidth="0.0" prefWidth="126.0" text="Моя ставка" />
+            <TableColumn fx:id="col_nameSellerLotsParticipationsBuyer" minWidth="0.0" prefWidth="150.00006103515625" text="Продавец" />
+            <TableColumn fx:id="col_statusLotsParticipationsBuyer" minWidth="0.0" prefWidth="118.0" text="Статус" />
+         </columns>
+      </TableView>
+      <Label layoutX="279.0" layoutY="30.0" prefHeight="34.0" prefWidth="121.0" text="Участия " textFill="#f41111" wrapText="true">
+         <font>
+            <Font name="Tahoma Bold" size="27.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateTimeField" layoutX="116.0" layoutY="111.0" prefHeight="40.0" prefWidth="447.0" textFill="#f41111" wrapText="true">
+         <font>
+            <Font name="Tahoma Bold" size="27.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

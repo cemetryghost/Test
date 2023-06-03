@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPaneRulesSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.SellerController">
+   <children>
+      <Label layoutX="14.0" layoutY="291.0" prefHeight="64.0" prefWidth="651.0" text="4. Неоднократные нарушения приводят к полному удалению аккаунта без возможности востановления." textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="194.0" prefHeight="97.0" prefWidth="651.0" text="2. Злоупотребление редактированием и удалением лотов, может привести к блокировке аккаунта. Чтобы его разблокировать, свяжитесь с администратором. " textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="97.0" prefHeight="97.0" prefWidth="651.0" text="1. При добавление нового лота, заявка отправляется администратору на проверку и только потом появляется на площадке покупателей." textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="144.0" layoutY="26.0" prefHeight="34.0" prefWidth="435.0" text="Основные правила для продавца " textFill="#f41111" wrapText="true">
+         <font>
+            <Font name="Tahoma" size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="144.0" layoutY="409.0" prefHeight="97.0" prefWidth="368.0" text="Доверие - это то, на чем построены торги! Удачи!" textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

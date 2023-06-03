@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorPaneRulesAdmin" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="116.0" prefHeight="129.0" prefWidth="651.0" text="2. Блокировки и удаления аккаунтов пользователей, должны иметь весомую причину." textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="67.0" prefHeight="97.0" prefWidth="651.0" text="1. Своевременно подтверждать заявки на добавление лота продавца." textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="87.0" layoutY="14.0" prefHeight="34.0" prefWidth="508.0" text="Основные правила для администратора " textFill="#f41111" wrapText="true">
+         <font>
+            <Font name="Tahoma" size="27.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="272.0" fitWidth="603.0" layoutX="39.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../image/CC8_PropertiesAuction_TEM1360_20210309141323_theedgemarkets.jpg" />
+         </image>
+      </ImageView>
+      <TabPane layoutX="-13.0" layoutY="48.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorPaneLotsSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.ProductsSellerController">
+   <children>
+      <TableView fx:id="tableViewLotsSeller" layoutY="229.0" prefHeight="318.0" prefWidth="679.0" stylesheets="@../../../../style.css">
+        <columns>
+          <TableColumn fx:id="col_nameLotsSeller" prefWidth="167.33334350585938" text="Наименование" />
+          <TableColumn fx:id="col_categoryLotsSeller" prefWidth="168.0" text="Категория" />
+            <TableColumn fx:id="col_startPriceLotsSeller" prefWidth="122.0" text="Начальная цена" />
+            <TableColumn fx:id="col_currentPriceLotsSeller" prefWidth="126.00006103515625" text="Текущая цена" />
+            <TableColumn fx:id="col_statusLotsSeller" prefWidth="93.33333333333337" text="Статус " />
+        </columns>
+      </TableView>
+      <Label layoutX="278.0" layoutY="39.0" prefHeight="34.0" prefWidth="146.0" text="Мои лоты " textFill="#f41111" wrapText="true">
+         <font>
+            <Font name="Tahoma Bold" size="27.0" />
+         </font>
+      </Label>
+      <Button fx:id="addLotsSeller" layoutX="24.0" layoutY="94.0" mnemonicParsing="false" onAction="#AddLotsSeller" prefHeight="84.0" prefWidth="181.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Добавить лот">
+         <font>
+            <Font name="Tahoma Bold" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/add_512px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="editLotsSeller" layoutX="236.0" layoutY="94.0" mnemonicParsing="false" onAction="#EditLotsSeller" prefHeight="84.0" prefWidth="230.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Редактировать лот">
+         <font>
+            <Font name="Tahoma Bold" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/edit_512px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="deleteLotsSeller" layoutX="499.0" layoutY="94.0" mnemonicParsing="false" onAction="#DeleteLotsSeller" prefHeight="84.0" prefWidth="170.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Удалить лот">
+         <font>
+            <Font name="Tahoma Bold" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/Delete_480px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="33.0" fitWidth="57.0" layoutX="236.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../image/Done_208px.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="finishLotsSeller" layoutX="99.0" layoutY="178.0" mnemonicParsing="false" onAction="#FinishLotsSeller" prefHeight="31.0" prefWidth="230.0" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Завершить лот досрочно!" textFill="#2d36db" underline="true">
+         <font>
+            <Font name="Tahoma" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="moreDetailLots" layoutX="351.0" layoutY="178.0" mnemonicParsing="false" onAction="#MoreInfoDetailsLots" prefHeight="31.0" prefWidth="230.0" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Подробнее о лоте!" textFill="#2d36db" underline="true">
+         <font>
+            <Font name="Tahoma" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.BuyerController">
+   <children>
+      <Pane layoutX="-1.0" layoutY="-6.0" prefHeight="605.0" prefWidth="383.0" style="-fx-background-color: #FFE4C4;">
+         <children>
+            <ImageView fitHeight="52.0" fitWidth="58.0" layoutX="120.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/profile_512px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="64.0" fitWidth="257.0" layoutX="77.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/ru_logo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="52.0" fitWidth="55.0" layoutX="41.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/Graphic-Elements-PNG-Picture.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="LotsButtonBuyer" layoutY="303.0" mnemonicParsing="false" onAction="#LotsBuyer" prefHeight="84.0" prefWidth="384.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Товары">
+               <font>
+                  <Font name="Tahoma Bold" size="21.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../image/trolley_208px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="participationsBuyerButton" layoutY="387.0" mnemonicParsing="false" onAction="#ParticipationsBuyer" prefHeight="84.0" prefWidth="384.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Мои участия">
+               <font>
+                  <Font name="Tahoma Bold" size="21.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../image/price_tag_480px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="rulesBuyerButton" layoutX="111.0" layoutY="510.0" mnemonicParsing="false" onAction="#RulesBuyer" prefHeight="31.0" prefWidth="179.0" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Правила!" textFill="#2d36db" underline="true">
+               <font>
+                  <Font name="Tahoma" size="16.0" />
+               </font>
+            </Button>
+            <Label layoutX="178.0" layoutY="246.0" prefHeight="24.0" prefWidth="120.0" text="Покупатель" wrapText="true">
+               <font>
+                  <Font name="Tahoma Bold" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Circle layoutX="18.0" layoutY="-5.0" radius="60.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.859649121761322" blue="0.028654970228672028" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Circle>
+      <Button fx:id="exitBuyerButton" layoutX="1028.0" mnemonicParsing="false" onAction="#ExitBuyer" prefHeight="16.0" prefWidth="0.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css">
+         <font>
+            <Font name="Tahoma Bold" size="21.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/exit_sign_480px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <AnchorPane fx:id="AnchorPaneRulesBuyer" layoutX="392.0" layoutY="39.0" prefHeight="547.0" prefWidth="679.0">
+         <children>
+            <Label layoutX="176.0" layoutY="89.0" prefHeight="34.0" prefWidth="328.0" text="Правило для покупателя! " textFill="#f41111" wrapText="true">
+               <font>
+                  <Font name="Tahoma" size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="93.0" layoutY="156.0" prefHeight="236.0" prefWidth="493.0" text="Размещай ту ставку, которую действительно готов оплатить! Если товар не будет оплачен после выигрыша, возможна блокировка/удаление аккаунта. Удачи!" textAlignment="CENTER" textFill="#f41111" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label fx:id="dateTimeLabel" layoutX="577.0" layoutY="22.0" prefHeight="34.0" prefWidth="368.0" wrapText="true">
+         <font>
+            <Font name="Tahoma Bold" size="27.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

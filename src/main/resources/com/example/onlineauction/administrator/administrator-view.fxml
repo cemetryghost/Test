@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.AdminController">
+   <children>
+      <Pane layoutX="-1.0" layoutY="-6.0" prefHeight="605.0" prefWidth="383.0" style="-fx-background-color: #FFE4C4;">
+         <children>
+            <ImageView fitHeight="45.0" fitWidth="42.0" layoutX="91.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/administrator_male_208px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="64.0" fitWidth="257.0" layoutX="75.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/ru_logo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="42.0" layoutX="42.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/Graphic-Elements-PNG-Picture.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="allLotsAdminButton" layoutY="230.0" mnemonicParsing="false" onAction="#AllLotsAdmin" prefHeight="84.0" prefWidth="384.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Лоты">
+               <font>
+                  <Font name="Tahoma Bold" size="21.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../image/request_service_480px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="categoryAdminButton" layoutY="314.0" mnemonicParsing="false" onAction="#CategoryAdmin" prefHeight="84.0" prefWidth="384.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Категории">
+               <font>
+                  <Font name="Tahoma Bold" size="21.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../image/category_512px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="accountsAdminButton" layoutY="398.0" mnemonicParsing="false" onAction="#AccountsButton" prefHeight="84.0" prefWidth="384.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Аккаунты">
+               <font>
+                  <Font name="Tahoma Bold" size="21.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../image/account_480px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="rulesAdminButton" layoutX="112.0" layoutY="506.0" mnemonicParsing="false" onAction="#RulesAdmin" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Правила!" textFill="#2d36db" underline="true">
+               <font>
+                  <Font name="Tahoma" size="16.0" />
+               </font>
+            </Button>
+            <Label layoutX="146.0" layoutY="178.0" prefHeight="21.0" prefWidth="160.0" text="Aдминистратор" wrapText="true">
+               <font>
+                  <Font name="Tahoma Bold" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Circle layoutX="18.0" layoutY="-5.0" radius="60.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.859649121761322" blue="0.028654970228672028" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Circle>
+      <Button fx:id="exitAdminButton" layoutX="1028.0" mnemonicParsing="false" onAction="#ExitAdmin" prefHeight="16.0" prefWidth="0.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css">
+         <font>
+            <Font name="Tahoma Bold" size="21.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/exit_sign_480px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <AnchorPane fx:id="AnchorPaneRulesAdmin" layoutX="392.0" layoutY="39.0" prefHeight="547.0" prefWidth="679.0">
+         <children>
+            <Label layoutX="14.0" layoutY="116.0" prefHeight="129.0" prefWidth="651.0" text="2. Блокировки и удаления аккаунтов пользователей, должны иметь весомую причину." textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="67.0" prefHeight="97.0" prefWidth="651.0" text="1. Своевременно подтверждать заявки на добавление лота продавца." textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="87.0" layoutY="14.0" prefHeight="34.0" prefWidth="508.0" text="Основные правила для администратора " textFill="#f41111" wrapText="true">
+               <font>
+                  <Font name="Tahoma" size="27.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="272.0" fitWidth="603.0" layoutX="39.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../image/CC8_PropertiesAuction_TEM1360_20210309141323_theedgemarkets.jpg" />
+               </image>
+            </ImageView>
+            <TabPane layoutX="-13.0" layoutY="48.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
+         </children>
+      </AnchorPane>
+      <Label fx:id="dateTimeLabel" layoutX="568.0" layoutY="14.0" prefHeight="34.0" prefWidth="368.0" wrapText="true">
+         <font>
+            <Font name="Tahoma Bold" size="27.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
