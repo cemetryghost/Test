@@ -2,10 +2,7 @@ package com.example.onlineauction;
 
 import com.example.onlineauction.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +32,7 @@ public class UserDAO {
             if (isUserExist(user.getLogin())) {
                 throw new IllegalArgumentException("Пользователь с таким логином уже существует");
             }
+
             statement.executeUpdate();
         }
     }
@@ -81,6 +79,43 @@ public class UserDAO {
         }
     }
 
+    public User getById(int userId) throws SQLException {
+        String query = "SELECT * FROM users WHERE idusers = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return createUserFromResultSet(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+
+    public void blockUser(int userId) throws SQLException {
+        String query = "UPDATE users SET status = 'block' WHERE idusers = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        }
+    }
+
+    public void unblockUser(int userId) throws SQLException {
+        String query = "UPDATE users SET status = 'active' WHERE idusers = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        }
+    }
+
+    public void deleteUser(int userId) throws SQLException {
+        String query = "DELETE FROM users WHERE idusers = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        }
+    }
+
     private User createUserFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("idusers");
         String name = resultSet.getString("name");
@@ -108,5 +143,5 @@ public class UserDAO {
             }
         }
         return null;
-    }
+    }9
 }

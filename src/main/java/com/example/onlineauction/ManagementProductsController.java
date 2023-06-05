@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import com.example.onlineauction.CategoryDAO;
 import com.example.onlineauction.LotDAO;
 import com.example.onlineauction.DatabaseConnector;
@@ -20,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class ManagementProductsController {
 
@@ -31,6 +33,8 @@ public class ManagementProductsController {
 
     @FXML
     private Button backButtonManageLots;
+
+    private static final Logger LOGGER = Logger.getLogger(ManagementProductsController.class.getName());
 
     @FXML
     private ComboBox<Category> categoryComboBox;
@@ -51,9 +55,6 @@ public class ManagementProductsController {
     private Button saveButtonManageLots;
 
     @FXML
-    private TextField sellerField;
-
-    @FXML
     private TextField startPriceField;
 
     @FXML
@@ -63,15 +64,18 @@ public class ManagementProductsController {
     private TextField conditionField;
 
     private CategoryDAO categoryDAO;
+    private UserDAO userDAO;
+    private int userId;
     private LotDAO lotDAO;
 
     @FXML
     void BackManageLots(ActionEvent event) {
-
+        Stage currentStage = (Stage) backButtonManageLots.getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML
-    void SaveManageLots(ActionEvent event) {
+    void SaveManageLots(ActionEvent event) throws SQLException {
         String name = nameLotsField.getText();
         String description = descriptionLotsArea.getText();
         LocalDate publicationDate = datePublication.getValue();
@@ -83,14 +87,21 @@ public class ManagementProductsController {
         Category selectedCategory = categoryComboBox.getValue();
         int categoryId = selectedCategory.getId();
 
+// Установите ID пользователя для создаваемого лот
+
         // Создаем объект лота
         Lot lot = new Lot(name, description, startPrice, startPrice, stepPrice, publicationDate.toString(), finishDate.toString(), condition);
 
-        // Получаем идентификатор продавца
         int sellerId = lot.getSellerId();
+        int buyerId = lot.getBuyerId(); // получение значения buyerId
+
 
         lot.setSellerId(sellerId);
+        lot.setBuyerId(buyerId);
         lot.setCategoryId(categoryId);
+
+        LOGGER.info("sellerId: " + sellerId);
+        LOGGER.info("username: " + categoryId);
 
         // Сохраняем лот в базе данных
         try {
@@ -108,7 +119,8 @@ public class ManagementProductsController {
             Connection connection = DatabaseConnector.ConnectDb(); // Получаем подключение к базе данных
             categoryDAO = new CategoryDAO(connection);
             lotDAO = new LotDAO(connection);
-
+            // Создаем экземпляр UserDAO
+            userDAO = new UserDAO(connection);
             // Заполняем ComboBox категориями из базы данных
             ObservableList<Category> categories = FXCollections.observableArrayList(categoryDAO.getAllCategories());
             categoryComboBox.setItems(categories);

@@ -30,6 +30,8 @@ public class AuthorizationController {
     @FXML
     private PasswordField passwordUserFieldAuth;
 
+    private int userId;
+
 
     @FXML
     void Authorization(ActionEvent event) throws Exception {
