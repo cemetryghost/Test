@@ -1,16 +1,16 @@
-package com.example.onlineauction;
+package com.example.onlineauction.controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.onlineauction.util.DateTimeUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class BuyerController {
 
@@ -46,7 +46,7 @@ public class BuyerController {
     @FXML
     void LotsBuyer(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("buyer/products-buyer.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/buyer/products-buyer.fxml"));
             AnchorPane newPane = fxmlLoader.load();
             AnchorPaneRulesBuyer.getChildren().setAll(newPane.getChildren());
         } catch (IOException e) {
@@ -57,7 +57,7 @@ public class BuyerController {
     @FXML
     void ParticipationsBuyer(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("buyer/participations-products-buyer.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/buyer/participations-products-buyer.fxml"));
             AnchorPane newPane = fxmlLoader.load();
             AnchorPaneRulesBuyer.getChildren().setAll(newPane.getChildren());
         } catch (IOException e) {
@@ -68,7 +68,7 @@ public class BuyerController {
     @FXML
     void RulesBuyer(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("buyer/rulesBuyer.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/buyer/rulesBuyer.fxml"));
             AnchorPane newPane = fxmlLoader.load();
             AnchorPaneRulesBuyer.getChildren().setAll(newPane.getChildren());
         } catch (IOException e) {

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneLotsAdmin" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.ProductsAdminController">
+<AnchorPane fx:id="AnchorPaneLotsAdmin" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.ProductsAdminController">
    <children>
       <Label layoutX="307.0" layoutY="28.0" prefHeight="34.0" prefWidth="79.0" text="Лоты" textFill="#f41111" wrapText="true">
          <font>

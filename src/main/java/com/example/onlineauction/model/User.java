@@ -1,4 +1,7 @@
-package com.example.onlineauction;
+package com.example.onlineauction.model;
+
+import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.constants.Status;
 
 import java.time.LocalDate;
 
@@ -90,15 +93,9 @@ public class User {
         this.status = status;
     }
 
-    public enum Role {
-        SELLER,
-        BUYER,
-        ADMIN
+    public boolean isBlocked() {
+        return status == Status.BLOCK;
     }
 
-    public enum Status {
-        ACTIVE,
-        BLOCK
-    }
 }
 

@@ -1,4 +1,6 @@
-package com.example.onlineauction;
+package com.example.onlineauction.dao;
+
+import com.example.onlineauction.model.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,6 +45,21 @@ public class CategoryDAO {
 
             statement.executeUpdate();
         }
+    }
+
+    public boolean isCategoryUsed(int categoryId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM lots WHERE category_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, categoryId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        }
+
+        return false;
     }
 
     public List<Category> getAllCategories() throws SQLException {

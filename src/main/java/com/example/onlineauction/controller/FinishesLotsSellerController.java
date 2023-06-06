@@ -1,4 +1,4 @@
-package com.example.onlineauction;
+package com.example.onlineauction.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,5 +1,11 @@
-package com.example.onlineauction;
+package com.example.onlineauction.controller;
 
+import com.example.onlineauction.*;
+import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.constants.Status;
+import com.example.onlineauction.dao.UserDAO;
+import com.example.onlineauction.model.User;
+import com.example.onlineauction.util.AlertUtil;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,8 +15,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import com.example.onlineauction.User.Role;
-import com.example.onlineauction.User.Status;
+
 import javafx.stage.Stage;
 
 
@@ -60,7 +65,7 @@ public class RegistrationController {
 
         // Проверка заполнения всех полей
         if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || password.isEmpty() || dateOfBirth == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Please fill in all fields.");
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Заполните все поля");
             return;
         }
 
@@ -116,12 +121,12 @@ public class RegistrationController {
                 Stage stageCLose = (Stage) registrationButton.getScene().getWindow();
                 stageCLose.close();
 
-                WindowsManager.openWindow("buyer/buyer-view.fxml","Окно покупателя");
+                WindowsManager.openWindow("/com/example/onlineauction/buyer/buyer-view.fxml","Окно покупателя");
             } else if (role == Role.SELLER) {
                 Stage stageCLose = (Stage) registrationButton.getScene().getWindow();
                 stageCLose.close();
 
-                WindowsManager.openWindow("seller/seller-view.fxml","Окно продавца");
+                WindowsManager.openWindow("/com/example/onlineauction/seller/seller-view.fxml","Окно продавца");
             }
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка регистрации: " + e.getMessage());

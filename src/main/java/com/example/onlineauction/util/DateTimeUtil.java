@@ -1,4 +1,4 @@
-package com.example.onlineauction;
+package com.example.onlineauction.util;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

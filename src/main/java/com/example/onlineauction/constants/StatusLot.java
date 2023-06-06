@@ -1,4 +1,4 @@
-package com.example.onlineauction;
+package com.example.onlineauction.constants;
 
 public enum StatusLot {
     AWAITING_CONFIRMATION("Ожидает подтверждения"),

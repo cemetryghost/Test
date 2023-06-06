@@ -1,6 +1,8 @@
-package com.example.onlineauction;
+package com.example.onlineauction.dao;
 
-import com.example.onlineauction.User;
+import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.constants.Status;
+import com.example.onlineauction.model.User;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -79,10 +81,26 @@ public class UserDAO {
         }
     }
 
-    public User getById(int userId) throws SQLException {
-        String query = "SELECT * FROM users WHERE idusers = ?";
+    public int getIdByLogin(String login){
+        String query = "select idusers from users where login= ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                int id = resultSet.getInt("idusers");
+                return id;
+            }
+        }
+        catch (Exception e){
+            e.getMessage();
+        }
+        return 0;
+    }
+
+    public User getUserByLogin(String login) throws SQLException {
+        String query = "SELECT * FROM users WHERE login = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, userId);
+            statement.setString(1, login);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return createUserFromResultSet(resultSet);
@@ -93,7 +111,7 @@ public class UserDAO {
     }
 
     public void blockUser(int userId) throws SQLException {
-        String query = "UPDATE users SET status = 'block' WHERE idusers = ?";
+        String query = "UPDATE users SET status = 'BLOCK' WHERE idusers = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, userId);
             statement.executeUpdate();
@@ -101,7 +119,7 @@ public class UserDAO {
     }
 
     public void unblockUser(int userId) throws SQLException {
-        String query = "UPDATE users SET status = 'active' WHERE idusers = ?";
+        String query = "UPDATE users SET status = 'ACTIVE' WHERE idusers = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, userId);
             statement.executeUpdate();
@@ -123,14 +141,14 @@ public class UserDAO {
         String login = resultSet.getString("login");
         String password = resultSet.getString("password");
         LocalDate birthDate = resultSet.getDate("birth_date").toLocalDate();
-        User.Role role = User.Role.valueOf(resultSet.getString("role"));
-        User.Status status = User.Status.valueOf(resultSet.getString("status"));
+        Role role = Role.valueOf(resultSet.getString("role"));
+        Status status = Status.valueOf(resultSet.getString("status"));
         User user = new User(name, surname, login, password, birthDate, role, status);
         user.setId(id);
         return user;
     }
 
-    public User.Role getUserRole(String username, String password) throws SQLException {
+    public Role getUserRole(String username, String password) throws SQLException {
         String query = "SELECT role FROM users WHERE login = ? AND password = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
@@ -138,10 +156,10 @@ public class UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     String roleString = resultSet.getString("role");
-                    return User.Role.valueOf(roleString.toUpperCase());
+                    return Role.valueOf(roleString.toUpperCase());
                 }
             }
         }
         return null;
-    }9
+    }
 }

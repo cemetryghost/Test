@@ -1,4 +1,7 @@
-package com.example.onlineauction;
+package com.example.onlineauction.dao;
+
+import com.example.onlineauction.model.Lot;
+import com.example.onlineauction.constants.StatusLot;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +17,7 @@ public class LotDAO {
     public LotDAO(Connection connection) {
         this.connection = connection;
     }
+
 
     public void create(Lot lot) throws SQLException {
 
@@ -95,9 +99,7 @@ public class LotDAO {
                     lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
                     lot.setCategoryId(resultSet.getInt("category_id"));
                     lot.setSellerId(resultSet.getInt("seller_id"));
-
-                    int buyerId = resultSet.getInt("buyer_id");
-                    lot.setBuyerId(buyerId != -1 ? buyerId : -1); // Если buyerId не равно -1, то устанавливаем его значение, иначе -1 для обозначения отсутствия покупателя
+                    lot.setBuyerId(resultSet.getInt("buyer_id"));
 
                     return lot;
                 }

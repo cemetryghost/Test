@@ -1,4 +1,6 @@
-package com.example.onlineauction;
+package com.example.onlineauction.model;
+
+import com.example.onlineauction.constants.StatusLot;
 
 public class Lot {
     private int id;

@@ -1,13 +1,21 @@
-package com.example.onlineauction;
+package com.example.onlineauction.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.onlineauction.WindowsManager;
+import com.example.onlineauction.constants.Role;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class ProductsSellerController {
 
@@ -55,7 +63,7 @@ public class ProductsSellerController {
 
     @FXML
     void AddLotsSeller(ActionEvent event) {
-        WindowsManager.openWindow("AllUsers/add-edit-products.fxml","Добавление лота");
+        WindowsManager.openWindow("/com/example/onlineauction/AllUsers/add-edit-products.fxml","Добавление лота");
     }
 
     @FXML
@@ -65,7 +73,7 @@ public class ProductsSellerController {
 
     @FXML
     void EditLotsSeller(ActionEvent event) {
-        WindowsManager.openWindow("AllUsers/add-edit-products.fxml","Редактирование лота");
+        WindowsManager.openWindow("/com/example/onlineauction/AllUsers/add-edit-products.fxml","Редактирование лота");
     }
 
     @FXML
@@ -74,8 +82,17 @@ public class ProductsSellerController {
     }
 
     @FXML
-    void MoreInfoDetailsLots(ActionEvent event) {
-        WindowsManager.openWindow("AllUsers/details-products.fxml","Детали лота");
+    void MoreInfoDetailsLots(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/AllUsers/details-products.fxml"));
+        Parent root = loader.load();
+
+        DetailProductsController detailProductsController = loader.getController();
+        detailProductsController.setRole(Role.SELLER);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Детали лота");
+        stage.show();
     }
 
     @FXML

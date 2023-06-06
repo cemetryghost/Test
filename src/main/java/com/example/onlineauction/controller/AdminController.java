@@ -1,16 +1,16 @@
-package com.example.onlineauction;
+package com.example.onlineauction.controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.onlineauction.util.DateTimeUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class AdminController {
 
@@ -44,7 +44,7 @@ public class AdminController {
     @FXML
     void AccountsButton(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("administrator/accounts-administrator.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/administrator/accounts-administrator.fxml"));
             AnchorPane newPane = fxmlLoader.load();
             AnchorPaneRulesAdmin.getChildren().setAll(newPane.getChildren());
         } catch (IOException e) {
@@ -55,7 +55,7 @@ public class AdminController {
     @FXML
     void AllLotsAdmin(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("administrator/all-products-administrator.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/administrator/all-products-administrator.fxml"));
             AnchorPane newPane = fxmlLoader.load();
             AnchorPaneRulesAdmin.getChildren().setAll(newPane.getChildren());
         } catch (IOException e) {
@@ -66,7 +66,7 @@ public class AdminController {
     @FXML
     void CategoryAdmin(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("administrator/category-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/administrator/category-view.fxml"));
             AnchorPane newPane = fxmlLoader.load();
             AnchorPaneRulesAdmin.getChildren().setAll(newPane.getChildren());
         } catch (IOException e) {
@@ -82,7 +82,7 @@ public class AdminController {
     @FXML
     void RulesAdmin(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("administrator/rulesAdmin.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/administrator/rulesAdmin.fxml"));
             AnchorPane newPane = fxmlLoader.load();
             AnchorPaneRulesAdmin.getChildren().setAll(newPane.getChildren());
         } catch (IOException e) {

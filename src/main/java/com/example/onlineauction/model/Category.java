@@ -1,4 +1,4 @@
-package com.example.onlineauction;
+package com.example.onlineauction.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

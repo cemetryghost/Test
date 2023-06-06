@@ -1,7 +1,9 @@
-package com.example.onlineauction;
+package com.example.onlineauction.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.onlineauction.constants.Role;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -59,6 +61,17 @@ public class DetailProductsController {
     @FXML
     private Label stepPriceLotsLabel;
 
+    private ProductsBuyerController productsBuyerController;
+
+    public void setProductsBuyerController(ProductsBuyerController controller) {
+        productsBuyerController = controller;
+    }
+
+    public void setRole(Role role) {
+        boolean isBuyer = role == Role.BUYER;
+        PaneBettingBuyerVisible.setVisible(isBuyer);
+    }
+
     @FXML
     void BackDetail(ActionEvent event) {
 
@@ -68,4 +81,5 @@ public class DetailProductsController {
     void BuyerBet(ActionEvent event) {
 
     }
+
 }

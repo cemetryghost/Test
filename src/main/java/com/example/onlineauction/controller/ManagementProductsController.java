@@ -1,17 +1,20 @@
-package com.example.onlineauction;
+package com.example.onlineauction.controller;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
-import com.example.onlineauction.CategoryDAO;
-import com.example.onlineauction.LotDAO;
-import com.example.onlineauction.DatabaseConnector;
-import com.example.onlineauction.Category;
-import com.example.onlineauction.Lot;
+
+import com.example.onlineauction.*;
+import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.dao.CategoryDAO;
+import com.example.onlineauction.dao.LotDAO;
+import com.example.onlineauction.dao.UserDAO;
+import com.example.onlineauction.model.Category;
+import com.example.onlineauction.model.Lot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,12 +71,15 @@ public class ManagementProductsController {
     private int userId;
     private LotDAO lotDAO;
 
+    public ManagementProductsController() throws SQLException {
+    }
+
     @FXML
     void BackManageLots(ActionEvent event) {
         Stage currentStage = (Stage) backButtonManageLots.getScene().getWindow();
         currentStage.close();
     }
-
+    UserDAO userDAO1 = new UserDAO(DriverManager.getConnection("jdbc:mysql://localhost:3306/auction", "root", "6778"));
     @FXML
     void SaveManageLots(ActionEvent event) throws SQLException {
         String name = nameLotsField.getText();
@@ -87,21 +93,18 @@ public class ManagementProductsController {
         Category selectedCategory = categoryComboBox.getValue();
         int categoryId = selectedCategory.getId();
 
-// Установите ID пользователя для создаваемого лот
+        int sellerId = 0;
+        if(userDAO.getUserRole(AuthorizationController.login, AuthorizationController.password) == Role.SELLER){
+            String login = AuthorizationController.login;
+            sellerId = userDAO.getIdByLogin(login);
+        }
+
 
         // Создаем объект лота
         Lot lot = new Lot(name, description, startPrice, startPrice, stepPrice, publicationDate.toString(), finishDate.toString(), condition);
 
-        int sellerId = lot.getSellerId();
-        int buyerId = lot.getBuyerId(); // получение значения buyerId
-
-
         lot.setSellerId(sellerId);
-        lot.setBuyerId(buyerId);
         lot.setCategoryId(categoryId);
-
-        LOGGER.info("sellerId: " + sellerId);
-        LOGGER.info("username: " + categoryId);
 
         // Сохраняем лот в базе данных
         try {

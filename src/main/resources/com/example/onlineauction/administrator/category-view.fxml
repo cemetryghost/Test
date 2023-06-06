@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneCategory" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.CategoryAdminController">
+<AnchorPane fx:id="AnchorPaneCategory" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.CategoryAdminController">
    <children>
       <Label layoutX="275.0" layoutY="24.0" prefHeight="34.0" prefWidth="149.0" text="Категории" textFill="#f41111" wrapText="true">
          <font>
@@ -22,7 +22,7 @@
             <TableColumn fx:id="col_nameCategory" prefWidth="677.9999795754751" text="Наименование категории" />
          </columns>
       </TableView>
-      <Button fx:id="editCategoryButton" layoutX="223.0" layoutY="81.0" mnemonicParsing="false" onAction="#EditGategory" prefHeight="84.0" prefWidth="234.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Редактировать">
+      <Button fx:id="editCategoryButton" layoutX="223.0" layoutY="81.0" mnemonicParsing="false" onAction="#EditCategory" prefHeight="84.0" prefWidth="234.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Редактировать">
          <font>
             <Font name="Tahoma Bold" size="21.0" />
          </font>
