@@ -1,4 +1,4 @@
-package com.example.onlineauction.controller;
+package com.example.onlineauction.controller.buyer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.controller.DetailProductsController;
 import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.model.Category;

@@ -18,4 +18,12 @@ module com.example.onlineauction {
     opens com.example.onlineauction.model to javafx.fxml;
     exports com.example.onlineauction.constants;
     opens com.example.onlineauction.constants to javafx.fxml;
+    exports com.example.onlineauction.controller.admin;
+    opens com.example.onlineauction.controller.admin to javafx.fxml;
+    exports com.example.onlineauction.controller.authentication;
+    opens com.example.onlineauction.controller.authentication to javafx.fxml;
+    exports com.example.onlineauction.controller.buyer;
+    opens com.example.onlineauction.controller.buyer to javafx.fxml;
+    exports com.example.onlineauction.controller.seller;
+    opens com.example.onlineauction.controller.seller to javafx.fxml;
 }

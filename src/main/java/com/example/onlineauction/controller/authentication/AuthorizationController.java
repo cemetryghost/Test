@@ -1,4 +1,4 @@
-package com.example.onlineauction.controller;
+package com.example.onlineauction.controller.authentication;
 
 
 import java.io.IOException;

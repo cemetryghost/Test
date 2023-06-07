@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneparticipationsBuyer" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.ParticipationsBuyerController">
+<AnchorPane fx:id="AnchorPaneparticipationsBuyer" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.buyer.ParticipationsBuyerController">
    <children>
       <TableView fx:id="TableViewParticipationsBuyer" layoutY="125.0" prefHeight="423.0" prefWidth="679.0" stylesheets="@../../../../style.css">
          <columns>

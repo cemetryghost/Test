@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneWinningSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.FinishesLotsSellerController">
+<AnchorPane fx:id="AnchorPaneWinningSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.seller.FinishesLotsSellerController">
     <children>
         <Label layoutX="201.0" layoutY="44.0" prefHeight="34.0" prefWidth="278.0" text="Завершенные лоты" textFill="#f41111" wrapText="true">
             <font>

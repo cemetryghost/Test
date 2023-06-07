@@ -1,8 +1,9 @@
-package com.example.onlineauction.controller;
+package com.example.onlineauction.controller.authentication;
 
 import com.example.onlineauction.*;
 import com.example.onlineauction.constants.Role;
 import com.example.onlineauction.constants.Status;
+import com.example.onlineauction.controller.ManagementProductsController;
 import com.example.onlineauction.dao.UserDAO;
 import com.example.onlineauction.model.User;
 import com.example.onlineauction.util.AlertUtil;
@@ -17,8 +18,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javafx.stage.Stage;
-
-import static com.example.onlineauction.controller.AuthorizationController.login;
 
 
 public class RegistrationController {

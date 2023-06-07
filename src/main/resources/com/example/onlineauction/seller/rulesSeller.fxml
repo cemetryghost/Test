@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneRulesSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.SellerController">
+<AnchorPane fx:id="anchorPaneRulesSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.seller.SellerController">
    <children>
       <Label layoutX="14.0" layoutY="291.0" prefHeight="64.0" prefWidth="651.0" text="4. Неоднократные нарушения приводят к полному удалению аккаунта без возможности востановления." textAlignment="JUSTIFY" textFill="#f41111" wrapText="true">
          <font>

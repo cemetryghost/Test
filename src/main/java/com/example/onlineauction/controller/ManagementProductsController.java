@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import com.example.onlineauction.*;
 import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.controller.authentication.AuthorizationController;
+import com.example.onlineauction.controller.authentication.RegistrationController;
 import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.dao.UserDAO;

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneLotsBuyer" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.ProductsBuyerController">
+<AnchorPane fx:id="AnchorPaneLotsBuyer" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.buyer.ProductsBuyerController">
    <children>
       <ComboBox fx:id="selectCategoriesBuyer" layoutX="22.0" layoutY="135.0" onAction="#SelectCategories" prefHeight="34.0" prefWidth="292.0" stylesheets="@../../../../style.css" />
       <Label layoutX="151.0" layoutY="35.0" prefHeight="34.0" prefWidth="378.0" text="Выберите категорию товаров" textFill="#f41111" wrapText="true">

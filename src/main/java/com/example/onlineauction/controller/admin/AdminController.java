@@ -1,4 +1,4 @@
-package com.example.onlineauction.controller;
+package com.example.onlineauction.controller.admin;
 
 import java.io.IOException;
 import java.net.URL;

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneLotsSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.ProductsSellerController">
+<AnchorPane fx:id="AnchorPaneLotsSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.seller.ProductsSellerController">
    <children>
       <TableView fx:id="tableViewLotsSeller" layoutY="229.0" prefHeight="318.0" prefWidth="679.0" stylesheets="@../../../../style.css">
         <columns>

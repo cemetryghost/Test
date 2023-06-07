@@ -1,4 +1,4 @@
-package com.example.onlineauction.controller;
+package com.example.onlineauction.controller.admin;
 
 import com.example.onlineauction.model.Category;
 import com.example.onlineauction.dao.CategoryDAO;
