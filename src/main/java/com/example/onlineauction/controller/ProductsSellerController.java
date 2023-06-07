@@ -2,10 +2,18 @@ package com.example.onlineauction.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.dao.LotDAO;
+import com.example.onlineauction.model.Lot;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +22,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import static com.example.onlineauction.controller.ManagementProductsController.sellerId;
 
 public class ProductsSellerController {
 
@@ -32,19 +43,19 @@ public class ProductsSellerController {
     private Button addLotsSeller;
 
     @FXML
-    private TableColumn<?, ?> col_categoryLotsSeller;
+    private TableColumn<Lot, String> col_categoryLotsSeller;
 
     @FXML
-    private TableColumn<?, ?> col_currentPriceLotsSeller;
+    private TableColumn<Lot, Double> col_currentPriceLotsSeller;
 
     @FXML
-    private TableColumn<?, ?> col_nameLotsSeller;
+    private TableColumn<Lot, String> col_nameLotsSeller;
 
     @FXML
-    private TableColumn<?, ?> col_startPriceLotsSeller;
+    private TableColumn<Lot, Double> col_startPriceLotsSeller;
 
     @FXML
-    private TableColumn<?, ?> col_statusLotsSeller;
+    private TableColumn<Lot, String> col_statusLotsSeller;
 
     @FXML
     private Button deleteLotsSeller;
@@ -59,7 +70,7 @@ public class ProductsSellerController {
     private Button moreDetailLots;
 
     @FXML
-    private TableView<?> tableViewLotsSeller;
+    private TableView<Lot> tableViewLotsSeller;
 
     @FXML
     void AddLotsSeller(ActionEvent event) {
@@ -96,8 +107,26 @@ public class ProductsSellerController {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws Exception {
+        Connection connection = DatabaseConnector.ConnectDb(); // Получаем соединение с базой данных
+        LotDAO lotDAO = new LotDAO(connection);
 
+        // Инициализируем столбцы таблицы
+        col_categoryLotsSeller.setCellValueFactory(new PropertyValueFactory<>("category"));
+        col_currentPriceLotsSeller.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
+        col_nameLotsSeller.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_startPriceLotsSeller.setCellValueFactory(new PropertyValueFactory<>("startPrice"));
+        col_statusLotsSeller.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        // Загружаем лоты продавца и добавляем их в таблицу
+        try {
+            List<Lot> sellerLots = lotDAO.getLotsBySeller(ManagementProductsController.sellerId);
+            ObservableList<Lot> lotsObservableList = FXCollections.observableArrayList(sellerLots);
+            tableViewLotsSeller.setItems(lotsObservableList);
+            tableViewLotsSeller.refresh();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

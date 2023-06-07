@@ -14,7 +14,7 @@ public class Lot {
     private String condition;
     private StatusLot statusLot;
     private int sellerId;
-    private int buyerId;
+    private int currentBuyerId;
     private int categoryId;
 
     public Lot() {
@@ -115,12 +115,12 @@ public class Lot {
         this.statusLot = statusLot;
     }
 
-    public int getBuyerId() {
-        return buyerId;
+    public int getCurrentBuyerId() {
+        return currentBuyerId;
     }
 
-    public void setBuyerId(int buyerId) {
-        this.buyerId = buyerId;
+    public void setCurrentBuyerId(int currentBuyerId) {
+        this.currentBuyerId = currentBuyerId;
     }
 
     public int getSellerId() {
@@ -153,7 +153,7 @@ public class Lot {
                 ", condition='" + condition + '\'' +
                 ", statusLot=" + statusLot +
                 ", sellerId=" + sellerId +
-                ", buyerId=" + buyerId +
+                ", currentBuyerId=" + currentBuyerId +
                 ", categoryId=" + categoryId +
                 '}';
     }

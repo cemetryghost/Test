@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class RunApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage)  {
         WindowsManager.openWindow("AllUsers/authorization.fxml", "Окно авторизации");
     }
 

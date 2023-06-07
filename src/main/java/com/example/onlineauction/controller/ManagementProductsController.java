@@ -19,12 +19,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import static com.example.onlineauction.util.AlertUtil.showAlert;
 
 public class ManagementProductsController {
 
@@ -70,6 +68,7 @@ public class ManagementProductsController {
     private UserDAO userDAO;
     private int userId;
     private LotDAO lotDAO;
+    public static int sellerId;
 
     public ManagementProductsController() throws SQLException {
     }
@@ -94,22 +93,28 @@ public class ManagementProductsController {
         int categoryId = selectedCategory.getId();
 
         int sellerId = 0;
-        if(userDAO.getUserRole(AuthorizationController.login, AuthorizationController.password) == Role.SELLER){
+        if (RegistrationController.isRegistred){
+            sellerId = RegistrationController.registeredUserId;
+        }
+        else if(userDAO.getUserRole(AuthorizationController.login, AuthorizationController.password) == Role.SELLER) {
             String login = AuthorizationController.login;
             sellerId = userDAO.getIdByLogin(login);
         }
 
+        int buyerId = 49;
 
-        // Создаем объект лота
+        // Создание объекта лота
         Lot lot = new Lot(name, description, startPrice, startPrice, stepPrice, publicationDate.toString(), finishDate.toString(), condition);
-
         lot.setSellerId(sellerId);
+        lot.setCurrentBuyerId(buyerId); // Установка фиктивного покупателя
         lot.setCategoryId(categoryId);
 
         // Сохраняем лот в базе данных
         try {
             lotDAO.create(lot);
-            System.out.println("Лот успешно сохранен в базе данных.");
+            showAlert(Alert.AlertType.INFORMATION, "Успеншно!", "Лот успешно добавлен!");
+            Stage stageClose = (Stage) saveButtonManageLots.getScene().getWindow();
+            stageClose.close();
         } catch (SQLException e) {
             e.printStackTrace();
             // Обработка ошибки сохранения лота

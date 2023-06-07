@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -106,12 +107,6 @@ public class ProductsBuyerController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        col_nameLotsBuyer.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        col_startPriceLotsBuyer.setCellValueFactory(cellData -> cellData.getValue().startPriceProperty().asObject());
-        col_currentPriceLotsBuyer.setCellValueFactory(cellData -> cellData.getValue().currentPriceProperty().asObject());
-        col_endDateLots.setCellValueFactory(cellData -> cellData.getValue().closingDateProperty());
-        col_betBuyer.setCellValueFactory(cellData -> cellData.getValue().betProperty());
     }
 
 }

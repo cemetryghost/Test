@@ -22,7 +22,7 @@ public class LotDAO {
     public void create(Lot lot) throws SQLException {
 
         String query = "INSERT INTO lots (name_lots, description_lots, start_price, current_price, step_price, " +
-                "publication_date, closing_date, condition_lots, status_lots, category_id, seller_id, buyer_id) " +
+                "publication_date, closing_date, condition_lots, status_lots, category_id, seller_id, current_buyer_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -38,7 +38,7 @@ public class LotDAO {
             statement.setString(9, lot.getStatusLot().getStatus());
             statement.setInt(10, lot.getCategoryId());
             statement.setInt(11, lot.getSellerId());
-            statement.setInt(12, lot.getBuyerId());
+            statement.setInt(12, lot.getCurrentBuyerId());
 
 
             statement.executeUpdate();
@@ -48,7 +48,7 @@ public class LotDAO {
     public void update(Lot lot) throws SQLException {
         String query = "UPDATE lots SET name_lots = ?, description_lots = ?, start_price = ?, current_price = ?, " +
                 "step_price = ?, publication_date = ?, closing_date = ?, condition_lots = ?, status_lots = ?, " +
-                "category_id = ?, seller_id = ?, buyer_id = ? WHERE idlots = ?";
+                "category_id = ?, seller_id = ?, current_buyer_id = ? WHERE idlots = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, lot.getName());
@@ -62,7 +62,7 @@ public class LotDAO {
             statement.setString(9, lot.getStatusLot().getStatus());
             statement.setInt(10, lot.getCategoryId());
             statement.setInt(11, lot.getSellerId());
-            statement.setInt(12, lot.getBuyerId());
+            statement.setInt(12, lot.getCurrentBuyerId());
             statement.setInt(13, lot.getId());
 
             statement.executeUpdate();
@@ -99,7 +99,7 @@ public class LotDAO {
                     lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
                     lot.setCategoryId(resultSet.getInt("category_id"));
                     lot.setSellerId(resultSet.getInt("seller_id"));
-                    lot.setBuyerId(resultSet.getInt("buyer_id"));
+                    lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
 
                     return lot;
                 }
@@ -129,7 +129,7 @@ public class LotDAO {
                 lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
                 lot.setCategoryId(resultSet.getInt("category_id"));
                 lot.setSellerId(resultSet.getInt("seller_id"));
-                lot.setBuyerId(resultSet.getInt("buyer_id"));
+                lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
 
                 lots.add(lot);
             }
@@ -160,7 +160,7 @@ public class LotDAO {
                     lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
                     lot.setCategoryId(resultSet.getInt("category_id"));
                     lot.setSellerId(resultSet.getInt("seller_id"));
-                    lot.setBuyerId(resultSet.getInt("buyer_id"));
+                    lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
 
                     lots.add(lot);
                 }
@@ -190,7 +190,7 @@ public class LotDAO {
                 lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
                 lot.setCategoryId(resultSet.getInt("category_id"));
                 lot.setSellerId(resultSet.getInt("seller_id"));
-                lot.setBuyerId(resultSet.getInt("buyer_id"));
+                lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
 
                 lots.add(lot);
             }
@@ -221,7 +221,7 @@ public class LotDAO {
                     lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
                     lot.setCategoryId(resultSet.getInt("category_id"));
                     lot.setSellerId(resultSet.getInt("seller_id"));
-                    lot.setBuyerId(resultSet.getInt("buyer_id"));
+                    lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
 
                     lots.add(lot);
                 }

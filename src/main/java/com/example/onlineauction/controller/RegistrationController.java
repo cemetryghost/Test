@@ -18,6 +18,8 @@ import java.time.LocalDate;
 
 import javafx.stage.Stage;
 
+import static com.example.onlineauction.controller.AuthorizationController.login;
+
 
 public class RegistrationController {
 
@@ -30,6 +32,10 @@ public class RegistrationController {
     @FXML private Button registrationButton;
     @FXML private JFXRadioButton sellerRadioButton;
     @FXML private TextField surnameUserField;
+    public static int registeredUserId;
+
+    private RegistrationController registrationController;
+    public static boolean isRegistred;
 
     @FXML
     void initialize() {
@@ -111,10 +117,18 @@ public class RegistrationController {
             // Сохранение пользователя в базе данных
             userDAO.saveUser(newUser);
 
+            isRegistred = true;
+
+            registeredUserId = userDAO.getIdByLogin(username);
+            System.out.println(registeredUserId);
+            ManagementProductsController.sellerId = registeredUserId;
+
             // Очистка полей ввода
             clearInputFields();
 
             showAlert(Alert.AlertType.INFORMATION, "Успешно", "Аккаунт зарегистрирован");
+
+            // Сохранение текущего пользователя в сессии
 
             // Проверка роли пользователя и открытие соответствующего окна
             if (role == Role.BUYER) {

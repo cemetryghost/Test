@@ -76,18 +76,7 @@ public class ProductsAdminController {
 
     @FXML
     void initialize() {
-        assert AnchorPaneLotsAdmin != null : "fx:id=\"AnchorPaneLotsAdmin\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert TableViewAdminLots != null : "fx:id=\"TableViewAdminLots\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert col_categoryLotsAdmin != null : "fx:id=\"col_categoryLotsAdmin\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert col_currentPriceLotsAdmin != null : "fx:id=\"col_currentPriceLotsAdmin\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert col_nameLotsAdmin != null : "fx:id=\"col_nameLotsAdmin\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert col_startPriceLotsAdmin != null : "fx:id=\"col_startPriceLotsAdmin\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert col_statusLotsAdmin != null : "fx:id=\"col_statusLotsAdmin\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert deleteLotsButton != null : "fx:id=\"deleteLotsButton\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert editLotsButton != null : "fx:id=\"editLotsButton\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert editStatusLotsButton != null : "fx:id=\"editStatusLotsButton\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert moreDetailLots != null : "fx:id=\"moreDetailLots\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
-        assert statusLotsComboBox != null : "fx:id=\"statusLotsComboBox\" was not injected: check your FXML file 'all-products-administrator.fxml'.";
+
 
     }
 
