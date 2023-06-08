@@ -20,4 +20,3 @@ public enum StatusLot {
         return status;
     }
 }
-

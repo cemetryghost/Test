@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class DetailProductsController {
 
@@ -75,7 +76,8 @@ public class DetailProductsController {
 
     @FXML
     void BackDetail(ActionEvent event) {
-
+        Stage stageClose = (Stage) backDetailLots.getScene().getWindow();
+        stageClose.close();
     }
 
     @FXML

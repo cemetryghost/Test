@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import com.example.onlineauction.*;
 import com.example.onlineauction.constants.Role;
 import com.example.onlineauction.controller.authentication.AuthorizationController;
 import com.example.onlineauction.controller.authentication.RegistrationController;
+import com.example.onlineauction.controller.seller.ProductsSellerController;
 import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.dao.UserDAO;
@@ -72,6 +74,16 @@ public class ManagementProductsController {
     private LotDAO lotDAO;
     public static int sellerId;
 
+    private ProductsSellerController productsSellerController;
+
+    public void setProductsSellerController(ProductsSellerController controller) {
+        this.productsSellerController = controller;
+    }
+
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public ManagementProductsController() throws SQLException {
     }
 
@@ -87,11 +99,30 @@ public class ManagementProductsController {
         String description = descriptionLotsArea.getText();
         LocalDate publicationDate = datePublication.getValue();
         LocalDate finishDate = dateFinish.getValue();
-        double startPrice = Double.parseDouble(startPriceField.getText());
-        double stepPrice = Double.parseDouble(stepPriceField.getText());
+        String startPriceText = startPriceField.getText();
+        String stepPriceText = stepPriceField.getText();
         String condition = conditionField.getText();
 
         Category selectedCategory = categoryComboBox.getValue();
+
+        if (name.isEmpty() || description.isEmpty() || publicationDate == null || finishDate == null ||
+                startPriceText.isEmpty() || stepPriceText.isEmpty() || condition.isEmpty() ||
+                selectedCategory == null) {
+            showAlert(Alert.AlertType.ERROR, "Ошибка!", "Пожалуйста, заполните все поля!");
+            return; // Прерываем выполнение метода, если найдены пустые поля
+        }
+
+        double startPrice;
+        double stepPrice;
+
+        try {
+            startPrice = Double.parseDouble(startPriceText);
+            stepPrice = Double.parseDouble(stepPriceText);
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Ошибка!", "Пожалуйста, введите числа в поля цены и шага!");
+            return; // Прерываем выполнение метода, если введены неверные числовые значения
+        }
+
         int categoryId = selectedCategory.getId();
 
         int sellerId = 0;
@@ -120,6 +151,8 @@ public class ManagementProductsController {
         } catch (SQLException e) {
             e.printStackTrace();
             // Обработка ошибки сохранения лота
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

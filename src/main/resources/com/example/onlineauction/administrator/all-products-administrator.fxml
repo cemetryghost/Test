@@ -19,11 +19,11 @@
       </Label>
       <TableView fx:id="TableViewAdminLots" layoutX="1.0" layoutY="292.0" prefHeight="275.0" prefWidth="679.0" stylesheets="@../../../../style.css">
          <columns>
-            <TableColumn fx:id="col_nameLotsAdmin" prefWidth="196.0" text="Наименование" />
-            <TableColumn fx:id="col_categoryLotsAdmin" prefWidth="118.0" text="Категория" />
-            <TableColumn fx:id="col_startPriceLotsAdmin" prefWidth="127.33329772949219" text="Начальная цена" />
-            <TableColumn fx:id="col_currentPriceLotsAdmin" prefWidth="129.9998779296875" text="Текущая цена" />
-            <TableColumn fx:id="col_statusLotsAdmin" prefWidth="106.0" text="Статус" />
+            <TableColumn fx:id="col_nameLotsAdmin" prefWidth="143.9999439716339" text="Наименование" />
+            <TableColumn fx:id="col_categoryLotsAdmin" prefWidth="128.0000457763672" text="Категория" />
+            <TableColumn fx:id="col_startPriceLotsAdmin" prefWidth="130.00006103515625" text="Начальная цена" />
+            <TableColumn fx:id="col_currentPriceLotsAdmin" prefWidth="103.33331298828125" text="Текущая цена" />
+            <TableColumn fx:id="col_statusLotsAdmin" prefWidth="174.00003051757812" text="Статус" />
          </columns>
       </TableView>
       <Button fx:id="editLotsButton" layoutX="265.0" layoutY="138.0" mnemonicParsing="false" onAction="#EditLots" prefHeight="84.0" prefWidth="229.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Редактировать" textAlignment="CENTER" wrapText="true">

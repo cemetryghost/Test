@@ -18,8 +18,8 @@
                 <TableColumn fx:id="col_nameLotsFinish" prefWidth="172.0" text="Наименование" />
                 <TableColumn fx:id="col_categoryLotsFinish" prefWidth="114.0" text="Категория" />
                 <TableColumn fx:id="col_PriceLotsFinish" prefWidth="136.6666259765625" text="Конечная цена" />
-                <TableColumn fx:id="col_nameBuyerLotsFinish" prefWidth="114.6666259765625" text="Покупатель" />
-                <TableColumn fx:id="col_finalStatusLotsFinish" prefWidth="142.666748046875" text=" Статус" />
+                <TableColumn fx:id="col_nameBuyerLotsFinish" prefWidth="122.0" text="Победитель" />
+                <TableColumn fx:id="col_finalStatusLotsFinish" prefWidth="136.6666259765625" text=" Статус" />
             </columns>
         </TableView>
     </children>

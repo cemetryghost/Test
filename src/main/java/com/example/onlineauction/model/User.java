@@ -3,6 +3,7 @@ package com.example.onlineauction.model;
 import com.example.onlineauction.constants.Role;
 import com.example.onlineauction.constants.Status;
 
+
 import java.time.LocalDate;
 
 public class User {

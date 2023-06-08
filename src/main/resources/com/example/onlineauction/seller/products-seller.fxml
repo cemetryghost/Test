@@ -13,11 +13,11 @@
    <children>
       <TableView fx:id="tableViewLotsSeller" layoutY="229.0" prefHeight="318.0" prefWidth="679.0" stylesheets="@../../../../style.css">
         <columns>
-          <TableColumn fx:id="col_nameLotsSeller" prefWidth="167.33334350585938" text="Наименование" />
-          <TableColumn fx:id="col_categoryLotsSeller" prefWidth="168.0" text="Категория" />
-            <TableColumn fx:id="col_startPriceLotsSeller" prefWidth="122.0" text="Начальная цена" />
-            <TableColumn fx:id="col_currentPriceLotsSeller" prefWidth="126.00006103515625" text="Текущая цена" />
-            <TableColumn fx:id="col_statusLotsSeller" prefWidth="93.33333333333337" text="Статус " />
+          <TableColumn fx:id="col_nameLotsSeller" prefWidth="130.66668701171875" text="Наименование" />
+          <TableColumn fx:id="col_categoryLotsSeller" prefWidth="108.6666259765625" text="Категория" />
+            <TableColumn fx:id="col_startPriceLotsSeller" prefWidth="115.33331298828125" text="Начальная цена" />
+            <TableColumn fx:id="col_currentPriceLotsSeller" prefWidth="106.0" text="Текущая цена" />
+            <TableColumn fx:id="col_statusLotsSeller" prefWidth="222.66668701171875" text="Статус " />
         </columns>
       </TableView>
       <Label layoutX="278.0" layoutY="39.0" prefHeight="34.0" prefWidth="146.0" text="Мои лоты " textFill="#f41111" wrapText="true">
