@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -114,6 +115,12 @@ public class ProductsBuyerController {
         lotDAO = new LotDAO(connection);
 
         ObservableList<Lot> lots = FXCollections.observableArrayList(lotDAO.getActiveLots());
+        ObservableList<String> combo = FXCollections.observableArrayList();
+        List<Category> categories = categoryDAO.getAllCategoriesList();
+
+        for(Category category : categories){
+            combo.add(category.getName());
+        }
 
         col_nameLotsBuyer.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_startPriceLotsBuyer.setCellValueFactory(new PropertyValueFactory<>("startPrice"));
@@ -121,7 +128,7 @@ public class ProductsBuyerController {
         col_endDateLots.setCellValueFactory(new PropertyValueFactory<>("publicationDate"));
         col_betBuyer.setCellValueFactory(new PropertyValueFactory<>("sellerId"));
 
-
+        selectCategoriesBuyer.setItems(combo);
         TableViewLotsBuyer.setItems(lots);
     }
 
