@@ -149,5 +149,6 @@ public class ProductsSellerController {
     public void getSelected() throws Exception {
         lot = tableViewLotsSeller.getSelectionModel().getSelectedItem();
         lot = lotDAO.getLotById(lot.getId());
+        System.out.println("");
     }
 }

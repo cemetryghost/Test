@@ -12,6 +12,7 @@ import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.Role;
 import com.example.onlineauction.controller.DetailProductsController;
+import com.example.onlineauction.controller.seller.ProductsSellerController;
 import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.model.Category;
@@ -124,8 +125,9 @@ public class ProductsBuyerController {
         TableViewLotsBuyer.setItems(lots);
     }
 
-    public void getSelected() {
-        DetailProductsController.lot = TableViewLotsBuyer.getSelectionModel().getSelectedItem();
+    public void getSelected() throws Exception{
+        ProductsSellerController.lot = TableViewLotsBuyer.getSelectionModel().getSelectedItem();
+        ProductsSellerController.lot = lotDAO.getLotById(ProductsSellerController.lot.getId());
       System.out.println();
     }
 }

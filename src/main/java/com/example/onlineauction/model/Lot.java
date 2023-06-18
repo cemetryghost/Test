@@ -170,13 +170,15 @@ public class Lot {
     public int getSellerId() {
         return sellerId;
     }
-
+    public String dateToString(Date date){
+        return String.valueOf(date);
+    }
     public void setSellerId(int sellerId) {
         this.sellerId = sellerId;
     }
 
     public int getCategoryId() {
-        return categoryId;
+        return Integer.parseInt(category);
     }
 
     public void setCategoryId(int categoryId) {

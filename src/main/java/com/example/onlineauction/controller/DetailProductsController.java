@@ -108,8 +108,8 @@ public class DetailProductsController implements Initializable {
             categoryLotsLabel.setText(CategoryDAO.getCategoryById(lot.getCategoryId()));
             startPriceLotsLabel.setText(String.valueOf(lot.getStartPrice()));
             stepPriceLotsLabel.setText(String.valueOf(lot.getStepPrice()));
-            dateLotsLabel.setText(lot.getPublicationDate());
-            finishLotsLabel.setText(lot.getClosingDate());
+            dateLotsLabel.setText(lot.getDatepublicationDate());
+            finishLotsLabel.setText(lot.getDatelosingDate());
             conditionLotsLabel.setText(lot.getCondition());
             statusLotsLabel.setText(lot.getStatusString());
         } catch (Exception exception){
