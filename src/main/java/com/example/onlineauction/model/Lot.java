@@ -2,6 +2,8 @@ package com.example.onlineauction.model;
 
 import com.example.onlineauction.constants.StatusLot;
 
+import java.sql.Date;
+
 public class Lot {
     private int id;
     private String name;
@@ -18,8 +20,11 @@ public class Lot {
     private int categoryId;
     private String statusString;
     private String category;
+    private Date DatepublicationDate;
+    private Date DateclosingDate;
 
-    public Lot(String name, String category, double startPrice, double currentPrice, String statusString) {
+    public Lot(int id, String name, String category, double startPrice, double currentPrice, String statusString) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.startPrice = startPrice;
@@ -42,6 +47,23 @@ public class Lot {
         this.condition = condition;
         this.statusLot = StatusLot.AWAITING_CONFIRMATION; // Установка значения по умолчанию
     }
+    public Lot(int id, String name, String description, double startPrice, double currentPrice, double stepPrice,
+               Date DatepublicationDate, Date DateclosingDate, String condition, String statusString, String category, int sellerId, int currentBuyerId){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.startPrice = startPrice;
+        this.currentPrice = currentPrice;
+        this.stepPrice = stepPrice;
+        this.DatepublicationDate = DatepublicationDate;
+        this.DateclosingDate = DateclosingDate;
+        this.condition = condition;
+        this.statusString = statusString;
+        this.category = category;
+        this.sellerId = sellerId;
+        this.currentBuyerId = currentBuyerId;
+
+    }
 
     // Геттеры и сеттеры
 
@@ -51,11 +73,18 @@ public class Lot {
     public String getStatusString() {
         return statusString;
     }
+    public void setStatusString(String statusString){this.statusString = statusString;}
     public String getCategory() {
         return category;
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public String getDatelosingDate(){
+        return DateclosingDate.toString();
+    }
+    public String getDatepublicationDate(){
+        return DatepublicationDate.toString();
     }
 
     public String getName() {
@@ -154,8 +183,7 @@ public class Lot {
         this.categoryId = categoryId;
     }
 
-    @Override
-    public String toString() {
+    public String Print() {
         return "Lot{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
@@ -172,6 +200,8 @@ public class Lot {
                 ", categoryId=" + categoryId +
                 ", category=" + category +
                 ", statusString=" + statusString +
+                ", DatepublicationDate=" + DateclosingDate.toString() +
+                ", DatepublicationDate=" + DatepublicationDate.toString() +
                 '}';
     }
 }

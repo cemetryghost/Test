@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneLotsSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.seller.ProductsSellerController">
+<AnchorPane fx:id="AnchorPaneLotsSeller" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.seller.ProductsSellerController">
    <children>
-      <TableView fx:id="tableViewLotsSeller" layoutY="229.0" prefHeight="318.0" prefWidth="679.0" stylesheets="@../../../../style.css">
+      <TableView fx:id="tableViewLotsSeller" layoutY="229.0" onMouseClicked="#getSelected" prefHeight="318.0" prefWidth="679.0" stylesheets="@../../../../style.css">
         <columns>
           <TableColumn fx:id="col_nameLotsSeller" prefWidth="130.66668701171875" text="Наименование" />
           <TableColumn fx:id="col_categoryLotsSeller" prefWidth="108.6666259765625" text="Категория" />

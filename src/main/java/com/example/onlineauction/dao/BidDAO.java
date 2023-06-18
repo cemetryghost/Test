@@ -61,4 +61,13 @@ public class BidDAO {
     }
 
     // Дополнительные методы, если необходимо
+
+    public void setBidAmountByIdLot(int id, double amount) throws Exception{
+        String query = "UPDATE bids set bid_amount = ? where lot_id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setDouble(1, amount);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        }
+    }
 }

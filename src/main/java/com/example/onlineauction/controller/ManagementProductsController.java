@@ -68,7 +68,7 @@ public class ManagementProductsController {
     @FXML
     private TextField conditionField;
 
-    private CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO = new CategoryDAO();
     private UserDAO userDAO;
     private int userId;
     private LotDAO lotDAO;
@@ -79,6 +79,8 @@ public class ManagementProductsController {
     public void setProductsSellerController(ProductsSellerController controller) {
         this.productsSellerController = controller;
     }
+
+    public Lot lot = ProductsSellerController.lot;
 
     public void setSellerId(int sellerId) {
         this.sellerId = sellerId;
@@ -92,7 +94,7 @@ public class ManagementProductsController {
         Stage currentStage = (Stage) backButtonManageLots.getScene().getWindow();
         currentStage.close();
     }
-    UserDAO userDAO1 = new UserDAO(DriverManager.getConnection("jdbc:mysql://localhost:3306/auction", "root", "6778"));
+    UserDAO userDAO1 = new UserDAO(DriverManager.getConnection("jdbc:mysql://localhost:3306/auction?serverTimezone=Europe/Moscow", "root", "12345"));
     @FXML
     void SaveManageLots(ActionEvent event) throws SQLException {
         String name = nameLotsField.getText();
@@ -157,20 +159,36 @@ public class ManagementProductsController {
     }
 
     @FXML
-    void initialize() {
-        try {
-            Connection connection = DatabaseConnector.ConnectDb(); // Получаем подключение к базе данных
-            categoryDAO = new CategoryDAO(connection);
-            lotDAO = new LotDAO(connection);
-            // Создаем экземпляр UserDAO
-            userDAO = new UserDAO(connection);
-            // Заполняем ComboBox категориями из базы данных
-            ObservableList<Category> categories = FXCollections.observableArrayList(categoryDAO.getAllCategories());
-            categoryComboBox.setItems(categories);
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Обработка ошибки подключения к базе данных
-        }
-    }
+    void initialize() throws Exception {
+        nameLotsField.setText(lot.getName());
+        descriptionLotsArea.setText(lot.getDescription());
+        startPriceField.setText(String.valueOf(lot.getStartPrice()));
+        stepPriceField.setText(String.valueOf(lot.getStepPrice()));
+        String publish = lot.getDatepublicationDate();
+        String close = lot.getDatelosingDate();
+        datePublication.setValue(LocalDate.of(Integer.parseInt(publish.split("-")[0]),
+                Integer.parseInt(publish.split("-")[1]),
+                Integer.parseInt(publish.split("-")[2])));
+        dateFinish.setValue(LocalDate.of(Integer.parseInt(close.split("-")[0]),
+                Integer.parseInt(close.split("-")[1]),
+                Integer.parseInt(close.split("-")[2])));
+        conditionField.setText(lot.getCondition());
 
+        categoryComboBox.setValue(categoryDAO.getAllCategoriesList().get(0));
+        categoryComboBox.setItems(categoryDAO.getAllCategoriesObservable());
+
+//        try {
+//            Connection connection = DatabaseConnector.ConnectDb(); // Получаем подключение к базе данных
+//            categoryDAO = new CategoryDAO(connection);
+//            lotDAO = new LotDAO(connection);
+//            // Создаем экземпляр UserDAO
+//            userDAO = new UserDAO(connection);
+//            // Заполняем ComboBox категориями из базы данных
+//            ObservableList<Category> categories = FXCollections.observableArrayList(categoryDAO.getAllCategories());
+//            categoryComboBox.setItems(categories);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            // Обработка ошибки подключения к базе данных
+//        }
+    }
 }

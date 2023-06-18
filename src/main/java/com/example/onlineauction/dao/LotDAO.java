@@ -12,13 +12,11 @@ import java.util.List;
 
 
 public class LotDAO {
-    private final Connection connection;
+    private Connection connection;
 
-    public LotDAO(Connection connection) {
+    public LotDAO(Connection connection){
         this.connection = connection;
     }
-
-
     public void create(Lot lot) throws SQLException {
 
         String query = "INSERT INTO lots (name_lots, description_lots, start_price, current_price, step_price, " +
@@ -187,7 +185,7 @@ public class LotDAO {
                 lot.setPublicationDate(resultSet.getString("publication_date"));
                 lot.setClosingDate(resultSet.getString("closing_date"));
                 lot.setCondition(resultSet.getString("condition_lots"));
-                lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
+                lot.setStatusString(resultSet.getString("status_lots"));
                 lot.setCategoryId(resultSet.getInt("category_id"));
                 lot.setSellerId(resultSet.getInt("seller_id"));
                 lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
@@ -241,11 +239,12 @@ public class LotDAO {
             try(ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()){
                     String name = resultSet.getString("name_lots");
+                    int id = resultSet.getInt("idlots");
                     int category = resultSet.getInt("category_id");
                     double price = resultSet.getDouble("start_price");
                     double currentPrice = resultSet.getDouble("current_price");
                     String status = resultSet.getString("status_lots");
-                    Lot lot = new Lot(name, CategoryDAO.getCategoryById(category), price, currentPrice, status);
+                    Lot lot = new Lot(id ,name, CategoryDAO.getCategoryById(category), price, currentPrice, status);
                     lots.add(lot);
                 }
             }
@@ -253,7 +252,31 @@ public class LotDAO {
         return lots;
     }
 
-
+    public Lot getLotById(int id) throws Exception{
+        String query = "select * from lots where idlots=" + id;
+        Lot lot = new Lot();
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                     lot = new Lot(resultSet.getInt("idlots"),
+                            resultSet.getString("name_lots"),
+                            resultSet.getString("description_lots"),
+                            resultSet.getDouble("start_price"),
+                            resultSet.getDouble("current_price"),
+                            resultSet.getDouble("step_price"),
+                            resultSet.getDate("publication_date"),
+                            resultSet.getDate("closing_date"),
+                            resultSet.getString("condition_lots"),
+                            resultSet.getString("status_lots"),
+                            resultSet.getString("category_id"), // Изменить на преобразованый в текст
+                            resultSet.getInt("seller_id"),
+                            resultSet.getInt("current_buyer_id")
+                    );
+                }
+            }
+        }
+        return lot;
+    }
 
 
     public void updateLotStatus(int lotId, StatusLot statusLot) throws SQLException {

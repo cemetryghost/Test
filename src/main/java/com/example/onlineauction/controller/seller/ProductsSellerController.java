@@ -28,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -76,6 +77,11 @@ public class ProductsSellerController {
 
     @FXML
     private TableView<Lot> tableViewLotsSeller;
+    public static Lot lot;
+    LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
+
+    public ProductsSellerController() throws Exception {
+    }
 
     @FXML
     void AddLotsSeller(ActionEvent event) {
@@ -140,4 +146,8 @@ public class ProductsSellerController {
 //        }
     }
 
+    public void getSelected() throws Exception {
+        lot = tableViewLotsSeller.getSelectionModel().getSelectedItem();
+        lot = lotDAO.getLotById(lot.getId());
+    }
 }

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import com.example.onlineauction.DatabaseConnector;
@@ -15,6 +16,8 @@ import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.model.Category;
 import com.example.onlineauction.model.Lot;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -108,12 +112,20 @@ public class ProductsBuyerController {
         categoryDAO = new CategoryDAO(connection);
         lotDAO = new LotDAO(connection);
 
-        try {
-            List<String> categories = categoryDAO.getAllStringCategories();
-            selectCategoriesBuyer.getItems().addAll(categories);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ObservableList<Lot> lots = FXCollections.observableArrayList(lotDAO.getActiveLots());
+
+        col_nameLotsBuyer.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_startPriceLotsBuyer.setCellValueFactory(new PropertyValueFactory<>("startPrice"));
+        col_currentPriceLotsBuyer.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
+        col_endDateLots.setCellValueFactory(new PropertyValueFactory<>("publicationDate"));
+        col_betBuyer.setCellValueFactory(new PropertyValueFactory<>("sellerId"));
+
+
+        TableViewLotsBuyer.setItems(lots);
     }
 
+    public void getSelected() {
+        DetailProductsController.lot = TableViewLotsBuyer.getSelectionModel().getSelectedItem();
+      System.out.println();
+    }
 }

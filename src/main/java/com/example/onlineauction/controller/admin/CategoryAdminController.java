@@ -79,7 +79,7 @@ public class CategoryAdminController {
 
     private boolean isCategoryNameUnique(String categoryName) {
         try {
-            List<Category> categories = categoryDAO.getAllCategories();
+            List<Category> categories = categoryDAO.getAllCategoriesList();
             for (Category category : categories) {
                 if (category.getName().equalsIgnoreCase(categoryName)) {
                     return false; // Имя категории уже существует
@@ -171,7 +171,7 @@ public class CategoryAdminController {
 
     private void loadCategories() {
         try {
-            List<Category> categories = categoryDAO.getAllCategories();
+            List<Category> categories = categoryDAO.getAllCategoriesList();
             categoryList.clear();
             categoryList.addAll(categories);
         } catch (SQLException e) {

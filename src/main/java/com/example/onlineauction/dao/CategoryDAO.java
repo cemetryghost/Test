@@ -2,6 +2,8 @@ package com.example.onlineauction.dao;
 
 import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.model.Category;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +25,9 @@ public class CategoryDAO {
 
     public CategoryDAO(Connection connection) {
         this.connection = connection;
+    }
+    public CategoryDAO(){
+
     }
 
     public void create(Category category) throws SQLException {
@@ -71,8 +76,25 @@ public class CategoryDAO {
         return false;
     }
 
-    public List<Category> getAllCategories() throws SQLException {
+    public List<Category> getAllCategoriesList() throws SQLException {
         List<Category> categories = new ArrayList<>();
+        String query = "SELECT * FROM category";
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("idcategory");
+                String name = resultSet.getString("name_category");
+
+                Category category = new Category(id, name);
+                categories.add(category);
+            }
+        }
+
+        return categories;
+    }
+    public ObservableList<Category> getAllCategoriesObservable() throws SQLException {
+        ObservableList<Category> categories = FXCollections.observableArrayList();
         String query = "SELECT * FROM category";
 
         try (PreparedStatement statement = connection.prepareStatement(query);
