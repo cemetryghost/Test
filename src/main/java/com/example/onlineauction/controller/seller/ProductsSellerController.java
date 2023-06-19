@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -85,6 +86,7 @@ public class ProductsSellerController {
 
     @FXML
     void AddLotsSeller(ActionEvent event) {
+        ProductsSellerController.lot = null;
         WindowsManager.openWindow("/com/example/onlineauction/AllUsers/add-edit-products.fxml","Добавление лота");
     }
 
@@ -95,7 +97,13 @@ public class ProductsSellerController {
 
     @FXML
     void EditLotsSeller(ActionEvent event) {
-        WindowsManager.openWindow("/com/example/onlineauction/AllUsers/add-edit-products.fxml","Редактирование лота");
+        if(ProductsSellerController.lot != null) {
+            WindowsManager.openWindow("/com/example/onlineauction/AllUsers/add-edit-products.fxml","Редактирование лота");
+        }
+        else{
+           Alert alert = new Alert(Alert.AlertType.ERROR, "Элемент не выбран");
+           alert.showAndWait();
+        }
     }
 
     @FXML

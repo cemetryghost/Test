@@ -160,19 +160,21 @@ public class ManagementProductsController {
 
     @FXML
     void initialize() throws Exception {
-        nameLotsField.setText(lot.getName());
-        descriptionLotsArea.setText(lot.getDescription());
-        startPriceField.setText(String.valueOf(lot.getStartPrice()));
-        stepPriceField.setText(String.valueOf(lot.getStepPrice()));
-        String publish = lot.getDatepublicationDate();
-        String close = lot.getDatelosingDate();
-        datePublication.setValue(LocalDate.of(Integer.parseInt(publish.split("-")[0]),
-                Integer.parseInt(publish.split("-")[1]),
-                Integer.parseInt(publish.split("-")[2])));
-        dateFinish.setValue(LocalDate.of(Integer.parseInt(close.split("-")[0]),
-                Integer.parseInt(close.split("-")[1]),
-                Integer.parseInt(close.split("-")[2])));
-        conditionField.setText(lot.getCondition());
+        if(lot != null){
+            nameLotsField.setText(lot.getName());
+            descriptionLotsArea.setText(lot.getDescription());
+            startPriceField.setText(String.valueOf(lot.getStartPrice()));
+            stepPriceField.setText(String.valueOf(lot.getStepPrice()));
+            String publish = lot.getDatepublicationDate();
+            String close = lot.getDatelosingDate();
+            datePublication.setValue(LocalDate.of(Integer.parseInt(publish.split("-")[0]),
+                    Integer.parseInt(publish.split("-")[1]),
+                    Integer.parseInt(publish.split("-")[2])));
+            dateFinish.setValue(LocalDate.of(Integer.parseInt(close.split("-")[0]),
+                    Integer.parseInt(close.split("-")[1]),
+                    Integer.parseInt(close.split("-")[2])));
+            conditionField.setText(lot.getCondition());
+        }
 
         categoryComboBox.setValue(categoryDAO.getAllCategoriesList().get(0));
         categoryComboBox.setItems(categoryDAO.getAllCategoriesObservable());
