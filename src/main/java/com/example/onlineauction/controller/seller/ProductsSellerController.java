@@ -85,7 +85,9 @@ public class ProductsSellerController {
     }
 
     @FXML
-    void AddLotsSeller(ActionEvent event) {
+    void AddLotsSeller(ActionEvent event) throws Exception{
+        Stage stageClose = (Stage) addLotsSeller.getScene().getWindow();
+        stageClose.close();
         ProductsSellerController.lot = null;
         WindowsManager.openWindow("/com/example/onlineauction/AllUsers/add-edit-products.fxml","Добавление лота");
     }

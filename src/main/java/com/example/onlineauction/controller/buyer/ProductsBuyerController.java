@@ -110,6 +110,15 @@ public class ProductsBuyerController {
 
     @FXML
     void initialize() throws Exception {
+        update();
+    }
+
+    public void getSelected() throws Exception{
+        ProductsSellerController.lot = TableViewLotsBuyer.getSelectionModel().getSelectedItem();
+        ProductsSellerController.lot = lotDAO.getLotById(ProductsSellerController.lot.getId());
+      System.out.println();
+    }
+    public void update() throws Exception{
         connection = DatabaseConnector.ConnectDb(); // Получаем подключение к базе данных
         categoryDAO = new CategoryDAO(connection);
         lotDAO = new LotDAO(connection);
@@ -130,11 +139,5 @@ public class ProductsBuyerController {
 
         selectCategoriesBuyer.setItems(combo);
         TableViewLotsBuyer.setItems(lots);
-    }
-
-    public void getSelected() throws Exception{
-        ProductsSellerController.lot = TableViewLotsBuyer.getSelectionModel().getSelectedItem();
-        ProductsSellerController.lot = lotDAO.getLotById(ProductsSellerController.lot.getId());
-      System.out.println();
     }
 }

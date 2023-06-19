@@ -17,6 +17,9 @@ public class LotDAO {
     public LotDAO(Connection connection){
         this.connection = connection;
     }
+    public LotDAO(){
+
+    }
     public void create(Lot lot) throws SQLException {
 
         String query = "INSERT INTO lots (name_lots, description_lots, start_price, current_price, step_price, " +
@@ -34,10 +37,9 @@ public class LotDAO {
             statement.setString(7, lot.getClosingDate());
             statement.setString(8, lot.getCondition());
             statement.setString(9, lot.getStatusLot().getStatus());
-            statement.setInt(10, lot.getCategoryId());
+            statement.setInt(10, lot.getCategoryIdd());
             statement.setInt(11, lot.getSellerId());
             statement.setInt(12, lot.getCurrentBuyerId());
-
 
             statement.executeUpdate();
         }

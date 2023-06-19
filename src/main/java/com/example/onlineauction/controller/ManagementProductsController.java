@@ -24,6 +24,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import static com.example.onlineauction.util.AlertUtil.showAlert;
@@ -67,6 +69,8 @@ public class ManagementProductsController {
 
     @FXML
     private TextField conditionField;
+    @FXML
+    private ImageView backButton;
 
     private CategoryDAO categoryDAO = new CategoryDAO();
     private UserDAO userDAO;
@@ -131,9 +135,9 @@ public class ManagementProductsController {
         if (RegistrationController.isRegistred){
             sellerId = RegistrationController.registeredUserId;
         }
-        else if(userDAO.getUserRole(AuthorizationController.login, AuthorizationController.password) == Role.SELLER) {
+        else if(userDAO1.getUserRole(AuthorizationController.login, AuthorizationController.password) == Role.SELLER) {
             String login = AuthorizationController.login;
-            sellerId = userDAO.getIdByLogin(login);
+            sellerId = userDAO1.getIdByLogin(login);
         }
 
         int buyerId = 49;
@@ -146,8 +150,9 @@ public class ManagementProductsController {
 
         // Сохраняем лот в базе данных
         try {
+            lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
             lotDAO.create(lot);
-            showAlert(Alert.AlertType.INFORMATION, "Успеншно!", "Лот успешно добавлен!");
+            showAlert(Alert.AlertType.INFORMATION, "Успешно!", "Лот успешно добавлен!");
             Stage stageClose = (Stage) saveButtonManageLots.getScene().getWindow();
             stageClose.close();
         } catch (SQLException e) {
@@ -192,5 +197,12 @@ public class ManagementProductsController {
 //            e.printStackTrace();
 //            // Обработка ошибки подключения к базе данных
 //        }
+    }
+
+    public void goBack(MouseEvent mouseEvent) {
+        Stage stageClose = (Stage) backButton.getScene().getWindow();
+        stageClose.close();
+
+        WindowsManager.openWindow("/com/example/onlineauction/seller/products-seller.fxml","Окно продавца");
     }
 }

@@ -180,6 +180,9 @@ public class Lot {
     public int getCategoryId() {
         return Integer.parseInt(category);
     }
+    public int getCategoryIdd(){
+        return categoryId;
+    }
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
