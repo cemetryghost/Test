@@ -155,6 +155,9 @@ public class ManagementProductsController {
             showAlert(Alert.AlertType.INFORMATION, "Успешно!", "Лот успешно добавлен!");
             Stage stageClose = (Stage) saveButtonManageLots.getScene().getWindow();
             stageClose.close();
+
+            WindowsManager.openWindow("seller/products-seller.fxml","Окно продавца");
+
         } catch (SQLException e) {
             e.printStackTrace();
             // Обработка ошибки сохранения лота
@@ -199,10 +202,11 @@ public class ManagementProductsController {
 //        }
     }
 
-    public void goBack(MouseEvent mouseEvent) {
+    @FXML
+    public void goBack() {
         Stage stageClose = (Stage) backButton.getScene().getWindow();
         stageClose.close();
 
-        WindowsManager.openWindow("/com/example/onlineauction/seller/products-seller.fxml","Окно продавца");
+        WindowsManager.openWindow("seller/products-seller.fxml","Окно продавца");
     }
 }

@@ -1,12 +1,15 @@
 package com.example.onlineauction.controller.admin;
 
 import com.example.onlineauction.DatabaseConnector;
+import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.StatusLot;
 import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.dao.UserDAO;
+import com.example.onlineauction.model.Category;
 import com.example.onlineauction.model.Lot;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -59,21 +63,44 @@ public class ProductsAdminController implements Initializable {
     private Button moreDetailLots;
 
     @FXML
-    private ComboBox<StatusLot> statusLotsComboBox;
+    private ComboBox<String> statusLotsComboBox;
+    private Lot lot;
+    private int id;
+    private LotDAO lotDAO;
+    Connection connection = DatabaseConnector.ConnectDb();
+
+    public ProductsAdminController() throws Exception {
+    }
 
     @FXML
-    void DeleteLots(ActionEvent event) {
-        // Обработчик события удаления лота
+    void DeleteLots(ActionEvent event) throws Exception{
+        lotDAO = new LotDAO(connection);
+        lotDAO.delete(id);
+        update();
     }
 
     @FXML
     void EditLots(ActionEvent event) {
-        // Обработчик события редактирования лота
+        WindowsManager.openWindow("AllUsers/add-edit-products.fxml", "Редактирование лота");
     }
 
     @FXML
-    void EditStatusLots(ActionEvent event) {
-        // Обработчик события редактирования статуса лота
+    void EditStatusLots(ActionEvent event) throws Exception{
+        lotDAO = new LotDAO(connection);
+        String newStatus = statusLotsComboBox.getSelectionModel().getSelectedItem();
+        Lot lot = lotDAO.getLotById(id);
+        if(newStatus.equals("Ожидает подтверждения")){
+            lotDAO.updateLotStatus(lot.getId(), StatusLot.AWAITING_CONFIRMATION);
+
+        }
+        else if(newStatus.equals("Завершен")){
+            lotDAO.updateLotStatus(lot.getId(), StatusLot.COMPLETED);
+        }
+        else if(newStatus.equals("Активный")){
+            lotDAO.updateLotStatus(lot.getId(), StatusLot.ACTIVE);
+        }
+
+        update();
     }
 
     @FXML
@@ -83,6 +110,9 @@ public class ProductsAdminController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        update();
+    }
+    public void update(){
         // Инициализация при загрузке FXML-файла
 
         Connection connection = null;
@@ -101,16 +131,28 @@ public class ProductsAdminController implements Initializable {
         col_categoryLotsAdmin.setCellValueFactory(new PropertyValueFactory<>("category"));
         col_startPriceLotsAdmin.setCellValueFactory(new PropertyValueFactory<>("startPrice"));
         col_currentPriceLotsAdmin.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
-        col_statusLotsAdmin.setCellValueFactory(new PropertyValueFactory<>("status"));
+        col_statusLotsAdmin.setCellValueFactory(new PropertyValueFactory<>("statusString"));
 
         // Заполнение ComboBox статусами лотов
         List<Lot> lots = null; // Предположим, что у вас есть метод getAllLots() в LotDAO
+        ObservableList<String> status = FXCollections.observableArrayList("Ожидает подтверждения", "Активный", "Завершен");
+        ObservableList<Lot> lotus = FXCollections.observableArrayList();
         try {
             lots = lotDAO.getAllLots();
+            for(Lot lot : lots){
+                lotus.add(lot);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        TableViewAdminLots.setItems(FXCollections.observableArrayList(lots));
+        TableViewAdminLots.setItems(lotus);
+        statusLotsComboBox.setItems(status);
+    }
+
+    public void getSelected(MouseEvent mouseEvent) {
+        lot = TableViewAdminLots.getSelectionModel().getSelectedItem();
+        id = lot.getId();
+        System.out.println(id);
     }
 }
 

@@ -78,6 +78,7 @@ public class LotDAO {
         }
     }
 
+
     public Lot getById(int lotId) throws SQLException {
         String query = "SELECT * FROM lots WHERE idlots = ?";
 
@@ -125,7 +126,7 @@ public class LotDAO {
                 lot.setPublicationDate(resultSet.getString("publication_date"));
                 lot.setClosingDate(resultSet.getString("closing_date"));
                 lot.setCondition(resultSet.getString("condition_lots"));
-                lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
+                lot.setStatusString(resultSet.getString("status_lots"));
                 lot.setCategoryId(resultSet.getInt("category_id"));
                 lot.setSellerId(resultSet.getInt("seller_id"));
                 lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));

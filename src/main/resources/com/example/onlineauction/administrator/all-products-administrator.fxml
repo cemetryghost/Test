@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneLotsAdmin" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.admin.ProductsAdminController">
+<AnchorPane fx:id="AnchorPaneLotsAdmin" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.admin.ProductsAdminController">
    <children>
       <Label layoutX="307.0" layoutY="28.0" prefHeight="34.0" prefWidth="79.0" text="Лоты" textFill="#f41111" wrapText="true">
          <font>
             <Font name="Tahoma Bold" size="27.0" />
          </font>
       </Label>
-      <TableView fx:id="TableViewAdminLots" layoutX="1.0" layoutY="292.0" prefHeight="275.0" prefWidth="679.0" stylesheets="@../../../../style.css">
+      <TableView fx:id="TableViewAdminLots" layoutX="1.0" layoutY="292.0" onMouseClicked="#getSelected" prefHeight="275.0" prefWidth="679.0" stylesheets="@../../../../style.css">
          <columns>
             <TableColumn fx:id="col_nameLotsAdmin" prefWidth="143.9999439716339" text="Наименование" />
             <TableColumn fx:id="col_categoryLotsAdmin" prefWidth="128.0000457763672" text="Категория" />

@@ -70,7 +70,7 @@ public class DetailProductsController implements Initializable {
 
     @FXML
     private Label stepPriceLotsLabel;
-    public static Lot lot = ProductsSellerController.lot;
+    public static Lot lot;
     private ProductsBuyerController productsBuyerController;
     Connection connection = DatabaseConnector.ConnectDb();
     BidDAO bidDAO = new BidDAO(connection);
@@ -102,6 +102,7 @@ public class DetailProductsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
+            lot = ProductsSellerController.lot;
             nameLotsLabel.setText(lot.getName());
             descriptionLotsLabel.setText(lot.getDescription());
             sellerLotsLabel.setText(String.valueOf(lot.getSellerId()));

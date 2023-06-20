@@ -93,14 +93,20 @@ public class ProductsSellerController {
     }
 
     @FXML
-    void DeleteLotsSeller(ActionEvent event) {
+    void DeleteLotsSeller(ActionEvent event) throws Exception{
+        int id = lot.getId();
+        lotDAO.delete(id);
 
+        update();
     }
 
     @FXML
     void EditLotsSeller(ActionEvent event) {
         if(ProductsSellerController.lot != null) {
-            WindowsManager.openWindow("/com/example/onlineauction/AllUsers/add-edit-products.fxml","Редактирование лота");
+            Stage stageClose = (Stage) editLotsSeller.getScene().getWindow();
+            stageClose.close();
+
+            WindowsManager.openWindow("AllUsers/add-edit-products.fxml","Редактирование лота");
         }
         else{
            Alert alert = new Alert(Alert.AlertType.ERROR, "Элемент не выбран");
@@ -129,21 +135,7 @@ public class ProductsSellerController {
 
     @FXML
     void initialize() throws Exception {
-        Connection connection = DatabaseConnector.ConnectDb(); // Получаем соединение с базой данных
-        LotDAO lotDAO = new LotDAO(connection);
-
-        List<Lot> lotus = lotDAO.getLotsBySellerId(AuthorizationController.userId);
-        ObservableList<Lot> lots = FXCollections.observableArrayList(lotus);
-
-        // Инициализируем столбцы таблицы
-        col_categoryLotsSeller.setCellValueFactory(new PropertyValueFactory<>("category"));
-        col_currentPriceLotsSeller.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
-        col_nameLotsSeller.setCellValueFactory(new PropertyValueFactory<>("name"));
-        col_startPriceLotsSeller.setCellValueFactory(new PropertyValueFactory<>("startPrice"));
-        col_statusLotsSeller.setCellValueFactory(new PropertyValueFactory<>("statusString"));
-
-        tableViewLotsSeller.setItems(lots);
-        tableViewLotsSeller.refresh();
+        update();
 
 //        // Загружаем лоты продавца и добавляем их в таблицу
 //        try {
@@ -160,5 +152,23 @@ public class ProductsSellerController {
         lot = tableViewLotsSeller.getSelectionModel().getSelectedItem();
         lot = lotDAO.getLotById(lot.getId());
         System.out.println("");
+    }
+
+    public void update() throws Exception{
+        Connection connection = DatabaseConnector.ConnectDb(); // Получаем соединение с базой данных
+        LotDAO lotDAO = new LotDAO(connection);
+
+        List<Lot> lotus = lotDAO.getLotsBySellerId(AuthorizationController.userId);
+        ObservableList<Lot> lots = FXCollections.observableArrayList(lotus);
+
+        // Инициализируем столбцы таблицы
+        col_categoryLotsSeller.setCellValueFactory(new PropertyValueFactory<>("category"));
+        col_currentPriceLotsSeller.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
+        col_nameLotsSeller.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_startPriceLotsSeller.setCellValueFactory(new PropertyValueFactory<>("startPrice"));
+        col_statusLotsSeller.setCellValueFactory(new PropertyValueFactory<>("statusString"));
+
+        tableViewLotsSeller.setItems(lots);
+        tableViewLotsSeller.refresh();
     }
 }
