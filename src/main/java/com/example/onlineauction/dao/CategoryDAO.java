@@ -139,13 +139,16 @@ public class CategoryDAO {
         return result;
     }
 
-    public static int getCategoryIdByString(String category) throws SQLException{
+    public static int getCategoryIdByString(String category) throws Exception{
         int result = 0;
-        String query = "SELECT idcategory FROM category where name_category= " + category;
+        String query = "SELECT idcategory FROM category where name_category=?";
 
-        try (PreparedStatement statement = connection.prepareStatement(query); ResultSet resultSet = statement.executeQuery()){
-            while (resultSet.next()){
-                result = resultSet.getInt("idcategory");
+        try (PreparedStatement statement = connection.prepareStatement(query);){
+            statement.setString(1, category);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    result = resultSet.getInt("idcategory");
+                }
             }
         }
         return result;

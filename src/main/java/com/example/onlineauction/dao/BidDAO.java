@@ -26,6 +26,27 @@ public class BidDAO {
             statement.executeUpdate();
         }
     }
+    public boolean existBidByIdLot(int idLot) throws Exception{
+        boolean result;
+        int id = 0;
+
+        String query = "select idbids from bids where lot_id=?";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setInt(1, idLot);
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    id = resultSet.getInt("idbids");
+                }
+            }
+        }
+        if(id == 0){
+            result = false;
+        }
+        else{
+            result = true;
+        }
+        return result;
+    }
 
     // Метод для получения всех ставок для определенного лота
     public List<Bid> getBidsByLotId(int lotId) throws SQLException {
@@ -69,5 +90,20 @@ public class BidDAO {
             statement.setInt(2, id);
             statement.executeUpdate();
         }
+    }
+
+    public double getBetByLotId(int lotId, int userId) throws Exception{
+        String query = "select bid_amount from bids where lot_id=? and buyer_id=?";
+        double result = 0;
+        try (PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setInt(1, lotId);
+            statement.setInt(2, userId);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    result = resultSet.getDouble("bid_amount");
+                }
+            }
+        }
+        return result;
     }
 }

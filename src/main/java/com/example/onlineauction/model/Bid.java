@@ -12,6 +12,11 @@ public class Bid {
         this.buyerId = buyerId;
         this.bidAmount = bidAmount;
     }
+    public Bid(int lotId, int buyerId, double bidAmount) {
+        this.lotId = lotId;
+        this.buyerId = buyerId;
+        this.bidAmount = bidAmount;
+    }
 
     public int getId() {
         return id;

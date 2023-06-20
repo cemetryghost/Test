@@ -22,6 +22,7 @@ public class Lot {
     private String category;
     private Date DatepublicationDate;
     private Date DateclosingDate;
+    private double myBet;
 
     public Lot(int id, String name, String category, double startPrice, double currentPrice, String statusString) {
         this.id = id;
@@ -82,6 +83,12 @@ public class Lot {
     }
     public String getDatelosingDate(){
         return DateclosingDate.toString();
+    }
+    public double getMyBet(){
+        return myBet;
+    }
+    public void setMyBet(double myBet){
+        this.myBet = myBet;
     }
     public String getDatepublicationDate(){
         return DatepublicationDate.toString();

@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.constants.StatusLot;
 import com.example.onlineauction.controller.DetailProductsController;
 import com.example.onlineauction.controller.seller.ProductsSellerController;
 import com.example.onlineauction.dao.CategoryDAO;
@@ -72,6 +73,7 @@ public class ProductsBuyerController {
     private CategoryDAO categoryDAO;
     private LotDAO lotDAO;
     Connection connection;
+    public static ObservableList<Lot> lots;
 
     public void setDetailProductsController(DetailProductsController controller) {
         detailProductsController = controller;
@@ -81,6 +83,9 @@ public class ProductsBuyerController {
     void DetailNBet(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/onlineauction/AllUsers/details-products.fxml"));
         Parent root = loader.load();
+
+        Stage stageClose = (Stage) detailNBetButton.getScene().getWindow();
+        stageClose.close();
 
         detailProductsController = loader.getController();
         detailProductsController.setProductsBuyerController(this);
@@ -92,17 +97,23 @@ public class ProductsBuyerController {
     }
 
     @FXML
-    void SelectCategories(ActionEvent event) {
+    void SelectCategories(ActionEvent event) throws Exception{
         try {
+            categoryDAO = new CategoryDAO();
             String selectedCategory = selectCategoriesBuyer.getSelectionModel().getSelectedItem();
             System.out.println(selectedCategory);
-            int category = 0;
+            int category = CategoryDAO.getCategoryIdByString(selectedCategory);
             List<Lot> lots = lotDAO.getLotsByCategory(category);
+            List<Lot> lotus = new ArrayList<>();
+
+            for(Lot lot : lots){
+                if(lot.getStatusLot() == StatusLot.ACTIVE){
+                    lotus.add(lot);
+                }
+            }
             TableViewLotsBuyer.getItems().clear();
 
-
-
-            TableViewLotsBuyer.getItems().addAll(lots);
+            TableViewLotsBuyer.getItems().addAll(lotus);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -123,7 +134,7 @@ public class ProductsBuyerController {
         categoryDAO = new CategoryDAO(connection);
         lotDAO = new LotDAO(connection);
 
-        ObservableList<Lot> lots = FXCollections.observableArrayList(lotDAO.getActiveLots());
+        lots = FXCollections.observableArrayList(lotDAO.getActiveLots());
         ObservableList<String> combo = FXCollections.observableArrayList();
         List<Category> categories = categoryDAO.getAllCategoriesList();
 
@@ -135,7 +146,7 @@ public class ProductsBuyerController {
         col_startPriceLotsBuyer.setCellValueFactory(new PropertyValueFactory<>("startPrice"));
         col_currentPriceLotsBuyer.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
         col_endDateLots.setCellValueFactory(new PropertyValueFactory<>("publicationDate"));
-        col_betBuyer.setCellValueFactory(new PropertyValueFactory<>("sellerId"));
+        col_betBuyer.setCellValueFactory(new PropertyValueFactory<>("myBet"));
 
         selectCategoriesBuyer.setItems(combo);
         TableViewLotsBuyer.setItems(lots);

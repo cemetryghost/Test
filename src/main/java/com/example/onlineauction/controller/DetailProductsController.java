@@ -6,11 +6,14 @@ import java.sql.Driver;
 import java.util.ResourceBundle;
 
 import com.example.onlineauction.DatabaseConnector;
+import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.Role;
+import com.example.onlineauction.controller.authentication.AuthorizationController;
 import com.example.onlineauction.controller.buyer.ProductsBuyerController;
 import com.example.onlineauction.controller.seller.ProductsSellerController;
 import com.example.onlineauction.dao.BidDAO;
 import com.example.onlineauction.dao.CategoryDAO;
+import com.example.onlineauction.model.Bid;
 import com.example.onlineauction.model.Lot;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -96,7 +99,18 @@ public class DetailProductsController implements Initializable {
     @FXML
     void BuyerBet(ActionEvent event) throws Exception{
         double bet = Double.parseDouble(buyerBettingField.getText());
-        bidDAO.setBidAmountByIdLot(lot.getId(), bet);
+        if(bidDAO.existBidByIdLot(lot.getId())){
+            bidDAO.setBidAmountByIdLot(lot.getId(), bet);
+        }
+        else{
+            Bid bid = new Bid(lot.getId(), AuthorizationController.userId, bet);
+            bidDAO.addBid(bid);
+        }
+
+        Stage stageClose = (Stage) buyerBettingButton.getScene().getWindow();
+        stageClose.close();
+
+        WindowsManager.openWindow("buyer/products-buyer.fxml","Окно покупателя");
     }
 
     @Override

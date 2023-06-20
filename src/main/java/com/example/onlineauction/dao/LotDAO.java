@@ -1,5 +1,6 @@
 package com.example.onlineauction.dao;
 
+import com.example.onlineauction.controller.authentication.AuthorizationController;
 import com.example.onlineauction.model.Lot;
 import com.example.onlineauction.constants.StatusLot;
 
@@ -157,7 +158,18 @@ public class LotDAO {
                     lot.setPublicationDate(resultSet.getString("publication_date"));
                     lot.setClosingDate(resultSet.getString("closing_date"));
                     lot.setCondition(resultSet.getString("condition_lots"));
-                    lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
+                    String status = resultSet.getString("status_lots");
+                    if(status.equals("Ожидает подтверждения")){
+                        lot.setStatusLot(StatusLot.AWAITING_CONFIRMATION);
+                    }
+                    else if(status.equals("Завершен")){
+                        lot.setStatusLot(StatusLot.COMPLETED);
+                    }
+                    else if(status.equals("Активный")){
+                        lot.setStatusLot(StatusLot.ACTIVE);
+                    }
+
+                    //lot.setStatusLot(StatusLot.valueOf(resultSet.getString("status_lots")));
                     lot.setCategoryId(resultSet.getInt("category_id"));
                     lot.setSellerId(resultSet.getInt("seller_id"));
                     lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
@@ -171,8 +183,9 @@ public class LotDAO {
     }
 
 
-    public List<Lot> getActiveLots() throws SQLException {
+    public List<Lot> getActiveLots() throws Exception {
         List<Lot> lots = new ArrayList<>();
+        BidDAO bidDAO = new BidDAO(connection);
         String query = "SELECT * FROM lots WHERE status_lots = 'Активный'";
 
         try (PreparedStatement statement = connection.prepareStatement(query);
@@ -192,6 +205,13 @@ public class LotDAO {
                 lot.setCategoryId(resultSet.getInt("category_id"));
                 lot.setSellerId(resultSet.getInt("seller_id"));
                 lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
+
+                if(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId) != 0){
+                    lot.setMyBet(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId));
+                }
+                else{
+                    lot.setMyBet(0);
+                }
 
                 lots.add(lot);
             }

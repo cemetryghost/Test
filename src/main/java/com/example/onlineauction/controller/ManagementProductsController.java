@@ -184,7 +184,6 @@ public class ManagementProductsController {
             conditionField.setText(lot.getCondition());
         }
 
-        categoryComboBox.setValue(categoryDAO.getAllCategoriesList().get(0));
         categoryComboBox.setItems(categoryDAO.getAllCategoriesObservable());
 
 //        try {

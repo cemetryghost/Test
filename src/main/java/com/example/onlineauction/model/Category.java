@@ -18,6 +18,7 @@ public class Category {
         this.id = id;
         this.name = new SimpleStringProperty(name);
     }
+
     public Category(String name1, double startPrice, double currentPrice, Date date, double myBet){
         this.name1 = name1;
         this.startPrice = startPrice;

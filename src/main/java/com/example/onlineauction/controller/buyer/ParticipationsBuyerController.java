@@ -2,10 +2,15 @@ package com.example.onlineauction.controller.buyer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.onlineauction.model.Lot;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 public class ParticipationsBuyerController {
@@ -20,7 +25,7 @@ public class ParticipationsBuyerController {
     private AnchorPane AnchorPaneparticipationsBuyer;
 
     @FXML
-    private TableView<?> TableViewParticipationsBuyer;
+    private TableView<Lot> TableViewParticipationsBuyer;
 
     @FXML
     private TableColumn<?, ?> col_betParticipationsBuyer;
@@ -42,15 +47,29 @@ public class ParticipationsBuyerController {
 
     @FXML
     void initialize() {
-        assert AnchorPaneparticipationsBuyer != null : "fx:id=\"AnchorPaneparticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
-        assert TableViewParticipationsBuyer != null : "fx:id=\"TableViewParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
-        assert col_betParticipationsBuyer != null : "fx:id=\"col_betParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
-        assert col_currentPriceLotsParticipationsBuyer != null : "fx:id=\"col_currentPriceLotsParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
-        assert col_nameLotsParticipationsBuyer != null : "fx:id=\"col_nameLotsParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
-        assert col_nameSellerLotsParticipationsBuyer != null : "fx:id=\"col_nameSellerLotsParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
-        assert col_statusLotsParticipationsBuyer != null : "fx:id=\"col_statusLotsParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
-        assert dateTimeField != null : "fx:id=\"dateTimeField\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
+//        assert AnchorPaneparticipationsBuyer != null : "fx:id=\"AnchorPaneparticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
+//        assert TableViewParticipationsBuyer != null : "fx:id=\"TableViewParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
+//        assert col_betParticipationsBuyer != null : "fx:id=\"col_betParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
+//        assert col_currentPriceLotsParticipationsBuyer != null : "fx:id=\"col_currentPriceLotsParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
+//        assert col_nameLotsParticipationsBuyer != null : "fx:id=\"col_nameLotsParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
+//        assert col_nameSellerLotsParticipationsBuyer != null : "fx:id=\"col_nameSellerLotsParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
+//        assert col_statusLotsParticipationsBuyer != null : "fx:id=\"col_statusLotsParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
+//        assert dateTimeField != null : "fx:id=\"dateTimeField\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
 
+        ObservableList<Lot> lotus = FXCollections.observableArrayList();
+        for(Lot lot : ProductsBuyerController.lots){
+            if(lot.getMyBet() != 0){
+                lotus.add(lot);
+            }
+        }
+
+        col_nameLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_currentPriceLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
+        col_betParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("myBet"));
+        col_nameSellerLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>(""));
+        col_statusLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("statusString"));
+
+        TableViewParticipationsBuyer.setItems(lotus);
     }
 
 }
