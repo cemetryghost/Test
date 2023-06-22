@@ -100,74 +100,130 @@ public class ManagementProductsController {
     }
     UserDAO userDAO1 = new UserDAO(DriverManager.getConnection("jdbc:mysql://localhost:3306/auction?serverTimezone=Europe/Moscow", "root", "12345"));
     @FXML
-    void SaveManageLots(ActionEvent event) throws SQLException {
-        String name = nameLotsField.getText();
-        String description = descriptionLotsArea.getText();
-        LocalDate publicationDate = datePublication.getValue();
-        LocalDate finishDate = dateFinish.getValue();
-        String startPriceText = startPriceField.getText();
-        String stepPriceText = stepPriceField.getText();
-        String condition = conditionField.getText();
+    void SaveManageLots(ActionEvent event) throws Exception {
+        if(ProductsSellerController.booleanAdd){
+            String name = nameLotsField.getText();
+            String description = descriptionLotsArea.getText();
+            LocalDate publicationDate = datePublication.getValue();
+            LocalDate finishDate = dateFinish.getValue();
+            String startPriceText = startPriceField.getText();
+            String stepPriceText = stepPriceField.getText();
+            String condition = conditionField.getText();
 
-        Category selectedCategory = categoryComboBox.getValue();
+            Category selectedCategory = categoryComboBox.getValue();
 
-        if (name.isEmpty() || description.isEmpty() || publicationDate == null || finishDate == null ||
-                startPriceText.isEmpty() || stepPriceText.isEmpty() || condition.isEmpty() ||
-                selectedCategory == null) {
-            showAlert(Alert.AlertType.ERROR, "Ошибка!", "Пожалуйста, заполните все поля!");
-            return; // Прерываем выполнение метода, если найдены пустые поля
+            if (name.isEmpty() || description.isEmpty() || publicationDate == null || finishDate == null ||
+                    startPriceText.isEmpty() || stepPriceText.isEmpty() || condition.isEmpty() ||
+                    selectedCategory == null) {
+                showAlert(Alert.AlertType.ERROR, "Ошибка!", "Пожалуйста, заполните все поля!");
+                return; // Прерываем выполнение метода, если найдены пустые поля
+            }
+
+            double startPrice;
+            double stepPrice;
+
+            try {
+                startPrice = Double.parseDouble(startPriceText);
+                stepPrice = Double.parseDouble(stepPriceText);
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Ошибка!", "Пожалуйста, введите числа в поля цены и шага!");
+                return; // Прерываем выполнение метода, если введены неверные числовые значения
+            }
+
+            int categoryId = selectedCategory.getId();
+
+            int sellerId = 0;
+            if (RegistrationController.isRegistred){
+                sellerId = RegistrationController.registeredUserId;
+            }
+            else if(userDAO1.getUserRole(AuthorizationController.login, AuthorizationController.password) == Role.SELLER) {
+                String login = AuthorizationController.login;
+                sellerId = userDAO1.getIdByLogin(login);
+            }
+
+            int buyerId = 49;
+
+            // Создание объекта лота
+            Lot lot = new Lot(name, description, startPrice, startPrice, stepPrice, publicationDate.toString(), finishDate.toString(), condition);
+            lot.setSellerId(sellerId);
+            lot.setCurrentBuyerId(buyerId); // Установка фиктивного покупателя
+            lot.setCategoryId(categoryId);
+
+            // Сохраняем лот в базе данных
+            try {
+                lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
+                lotDAO.create(lot);
+                showAlert(Alert.AlertType.INFORMATION, "Успешно!", "Лот успешно добавлен!");
+                Stage stageClose = (Stage) saveButtonManageLots.getScene().getWindow();
+                stageClose.close();
+
+                WindowsManager.openWindow("seller/products-seller.fxml","Окно продавца");
+                ProductsSellerController.booleanAdd = false;
+                ProductsSellerController.booleanEdit = false;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Обработка ошибки сохранения лота
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
-
-        double startPrice;
-        double stepPrice;
-
-        try {
-            startPrice = Double.parseDouble(startPriceText);
-            stepPrice = Double.parseDouble(stepPriceText);
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Ошибка!", "Пожалуйста, введите числа в поля цены и шага!");
-            return; // Прерываем выполнение метода, если введены неверные числовые значения
-        }
-
-        int categoryId = selectedCategory.getId();
-
-        int sellerId = 0;
-        if (RegistrationController.isRegistred){
-            sellerId = RegistrationController.registeredUserId;
-        }
-        else if(userDAO1.getUserRole(AuthorizationController.login, AuthorizationController.password) == Role.SELLER) {
-            String login = AuthorizationController.login;
-            sellerId = userDAO1.getIdByLogin(login);
-        }
-
-        int buyerId = 49;
-
-        // Создание объекта лота
-        Lot lot = new Lot(name, description, startPrice, startPrice, stepPrice, publicationDate.toString(), finishDate.toString(), condition);
-        lot.setSellerId(sellerId);
-        lot.setCurrentBuyerId(buyerId); // Установка фиктивного покупателя
-        lot.setCategoryId(categoryId);
-
-        // Сохраняем лот в базе данных
-        try {
+        else if(ProductsSellerController.booleanEdit){
             lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
-            lotDAO.create(lot);
-            showAlert(Alert.AlertType.INFORMATION, "Успешно!", "Лот успешно добавлен!");
-            Stage stageClose = (Stage) saveButtonManageLots.getScene().getWindow();
-            stageClose.close();
+            categoryDAO = new CategoryDAO(DatabaseConnector.ConnectDb());
+            Lot editLot = lotDAO.getLotById(ProductsSellerController.lot.getId());
 
-            WindowsManager.openWindow("seller/products-seller.fxml","Окно продавца");
+            String name = nameLotsField.getText();
+            String description = descriptionLotsArea.getText();
+            LocalDate publicationDate = datePublication.getValue();
+            LocalDate finishDate = dateFinish.getValue();
+            String startPriceText = startPriceField.getText();
+            String stepPriceText = stepPriceField.getText();
+            String condition = conditionField.getText();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Обработка ошибки сохранения лота
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            Category selectedCategory = categoryComboBox.getValue();
+
+            double startPrice = 0;
+            double stepPrice = 0;
+
+            try {
+                startPrice = Double.parseDouble(startPriceText);
+                stepPrice = Double.parseDouble(stepPriceText);
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Ошибка!", "Пожалуйста, введите числа в поля цены и шага!");
+                return; // Прерываем выполнение метода, если введены неверные числовые значения
+            }
+
+            int categoryId = selectedCategory.getId();
+
+            editLot.setName(name);
+            editLot.setDescription(description);
+            editLot.setPublicationDate(publicationDate.toString());
+            editLot.setClosingDate(finishDate.toString());
+            editLot.setCondition(condition);
+            editLot.setStartPrice(startPrice);
+            editLot.setStepPrice(stepPrice);
+            editLot.setCategoryId(categoryId);
+
+            try{
+                lotDAO.update(editLot);
+                showAlert(Alert.AlertType.INFORMATION, "Успешно!", "Лот успешно обновлен!");
+                Stage stageClose = (Stage) saveButtonManageLots.getScene().getWindow();
+                stageClose.close();
+
+                WindowsManager.openWindow("seller/products-seller.fxml","Окно продавца");
+                ProductsSellerController.booleanAdd = false;
+                ProductsSellerController.booleanEdit = false;
+            } catch (Exception exception){
+                exception.printStackTrace();
+            }
         }
+
     }
 
     @FXML
     void initialize() throws Exception {
+        int index = 0;
         if(lot != null){
             nameLotsField.setText(lot.getName());
             descriptionLotsArea.setText(lot.getDescription());
@@ -183,8 +239,19 @@ public class ManagementProductsController {
                     Integer.parseInt(close.split("-")[2])));
             conditionField.setText(lot.getCondition());
         }
+        //for(String text : categoryDAO.getAllStringCategories())
+        for(; index < categoryDAO.getAllStringCategories().size(); index++){
+            String text = categoryDAO.getAllCategoriesList().get(index).getName();
+            String result = CategoryDAO.getCategoryById(lot.getCategoryId());
+            if(text.equals(result)){
+                break;
+            }
+        }
 
         categoryComboBox.setItems(categoryDAO.getAllCategoriesObservable());
+        Category category = categoryDAO.getAllCategoriesList().get(index);
+        categoryComboBox.setValue(category);
+
 
 //        try {
 //            Connection connection = DatabaseConnector.ConnectDb(); // Получаем подключение к базе данных

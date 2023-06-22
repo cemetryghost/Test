@@ -57,10 +57,10 @@ public class LotDAO {
             statement.setDouble(3, lot.getStartPrice());
             statement.setDouble(4, lot.getCurrentPrice());
             statement.setDouble(5, lot.getStepPrice());
-            statement.setString(6, lot.getPublicationDate());
-            statement.setString(7, lot.getClosingDate());
+            statement.setString(6, lot.getDatepublicationDate());
+            statement.setString(7, lot.getDatelosingDate());
             statement.setString(8, lot.getCondition());
-            statement.setString(9, lot.getStatusLot().getStatus());
+            statement.setString(9, lot.getStatusString());
             statement.setInt(10, lot.getCategoryId());
             statement.setInt(11, lot.getSellerId());
             statement.setInt(12, lot.getCurrentBuyerId());

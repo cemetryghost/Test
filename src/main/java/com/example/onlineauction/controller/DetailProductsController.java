@@ -13,8 +13,10 @@ import com.example.onlineauction.controller.buyer.ProductsBuyerController;
 import com.example.onlineauction.controller.seller.ProductsSellerController;
 import com.example.onlineauction.dao.BidDAO;
 import com.example.onlineauction.dao.CategoryDAO;
+import com.example.onlineauction.dao.UserDAO;
 import com.example.onlineauction.model.Bid;
 import com.example.onlineauction.model.Lot;
+import com.example.onlineauction.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -116,10 +118,12 @@ public class DetailProductsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
+            UserDAO userDAO = new UserDAO(DatabaseConnector.ConnectDb());
+
             lot = ProductsSellerController.lot;
             nameLotsLabel.setText(lot.getName());
             descriptionLotsLabel.setText(lot.getDescription());
-            sellerLotsLabel.setText(String.valueOf(lot.getSellerId()));
+            sellerLotsLabel.setText(userDAO.getNameAndSurnameById(lot.getSellerId()));
             categoryLotsLabel.setText(CategoryDAO.getCategoryById(lot.getCategoryId()));
             startPriceLotsLabel.setText(String.valueOf(lot.getStartPrice()));
             stepPriceLotsLabel.setText(String.valueOf(lot.getStepPrice()));

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -80,6 +81,8 @@ public class ProductsSellerController {
     private TableView<Lot> tableViewLotsSeller;
     public static Lot lot;
     LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
+    public static boolean booleanAdd = false;
+    public static boolean booleanEdit = false;
 
     public ProductsSellerController() throws Exception {
     }
@@ -90,6 +93,7 @@ public class ProductsSellerController {
         stageClose.close();
         ProductsSellerController.lot = null;
         WindowsManager.openWindow("/com/example/onlineauction/AllUsers/add-edit-products.fxml","Добавление лота");
+        booleanAdd = true;
     }
 
     @FXML
@@ -107,6 +111,7 @@ public class ProductsSellerController {
             stageClose.close();
 
             WindowsManager.openWindow("AllUsers/add-edit-products.fxml","Редактирование лота");
+            booleanEdit = true;
         }
         else{
            Alert alert = new Alert(Alert.AlertType.ERROR, "Элемент не выбран");
@@ -151,14 +156,20 @@ public class ProductsSellerController {
     public void getSelected() throws Exception {
         lot = tableViewLotsSeller.getSelectionModel().getSelectedItem();
         lot = lotDAO.getLotById(lot.getId());
-        System.out.println("");
+        System.out.println(lot.Print());
     }
 
     public void update() throws Exception{
         Connection connection = DatabaseConnector.ConnectDb(); // Получаем соединение с базой данных
         LotDAO lotDAO = new LotDAO(connection);
+        List<Lot> lotus = new ArrayList<>();
 
-        List<Lot> lotus = lotDAO.getLotsBySellerId(AuthorizationController.userId);
+        if(AuthorizationController.userId != 0){
+            lotus = lotDAO.getLotsBySellerId(AuthorizationController.userId);
+        }
+        else if(RegistrationController.registeredUserId != 0){
+            lotus = lotDAO.getLotsBySellerId(RegistrationController.registeredUserId);
+        }
         ObservableList<Lot> lots = FXCollections.observableArrayList(lotus);
 
         // Инициализируем столбцы таблицы

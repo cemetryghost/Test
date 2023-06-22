@@ -162,4 +162,17 @@ public class UserDAO {
         }
         return null;
     }
+    public String getNameAndSurnameById(int id) throws Exception{
+        String result = "";
+        String query = "select * from users where idusers=?";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setInt(1, id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    result = String.format("%s %s", resultSet.getString("name"), resultSet.getString("surname"));
+                }
+            }
+        }
+        return result;
+    }
 }

@@ -14,7 +14,9 @@ import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.Role;
 import com.example.onlineauction.constants.StatusLot;
 import com.example.onlineauction.controller.DetailProductsController;
+import com.example.onlineauction.controller.authentication.AuthorizationController;
 import com.example.onlineauction.controller.seller.ProductsSellerController;
+import com.example.onlineauction.dao.BidDAO;
 import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.model.Category;
@@ -104,16 +106,18 @@ public class ProductsBuyerController {
             System.out.println(selectedCategory);
             int category = CategoryDAO.getCategoryIdByString(selectedCategory);
             List<Lot> lots = lotDAO.getLotsByCategory(category);
-            List<Lot> lotus = new ArrayList<>();
+            ObservableList<Lot> lotus = FXCollections.observableArrayList();
+            BidDAO bidDAO = new BidDAO(connection);
 
             for(Lot lot : lots){
                 if(lot.getStatusLot() == StatusLot.ACTIVE){
+                    lot.setMyBet(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId));
                     lotus.add(lot);
                 }
             }
-            TableViewLotsBuyer.getItems().clear();
 
-            TableViewLotsBuyer.getItems().addAll(lotus);
+            TableViewLotsBuyer.getItems().clear();
+            TableViewLotsBuyer.setItems(lotus);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -149,6 +153,6 @@ public class ProductsBuyerController {
         col_betBuyer.setCellValueFactory(new PropertyValueFactory<>("myBet"));
 
         selectCategoriesBuyer.setItems(combo);
-        TableViewLotsBuyer.setItems(lots);
+        //TableViewLotsBuyer.setItems(lots);
     }
 }
