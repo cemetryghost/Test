@@ -3,6 +3,10 @@ package com.example.onlineauction.controller.buyer;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.example.onlineauction.DatabaseConnector;
+import com.example.onlineauction.dao.CategoryDAO;
+import com.example.onlineauction.dao.UserDAO;
+import com.example.onlineauction.model.Category;
 import com.example.onlineauction.model.Lot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,7 +50,7 @@ public class ParticipationsBuyerController {
     private Label dateTimeField;
 
     @FXML
-    void initialize() {
+    void initialize() throws Exception{
 //        assert AnchorPaneparticipationsBuyer != null : "fx:id=\"AnchorPaneparticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
 //        assert TableViewParticipationsBuyer != null : "fx:id=\"TableViewParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
 //        assert col_betParticipationsBuyer != null : "fx:id=\"col_betParticipationsBuyer\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
@@ -57,8 +61,10 @@ public class ParticipationsBuyerController {
 //        assert dateTimeField != null : "fx:id=\"dateTimeField\" was not injected: check your FXML file 'participations-products-buyer.fxml'.";
 
         ObservableList<Lot> lotus = FXCollections.observableArrayList();
+        UserDAO userDAO = new UserDAO(DatabaseConnector.ConnectDb());
         for(Lot lot : ProductsBuyerController.lots){
             if(lot.getMyBet() != 0){
+                lot.setSeller(userDAO.getNameAndSurnameById(lot.getSellerId()));
                 lotus.add(lot);
             }
         }
@@ -66,7 +72,7 @@ public class ParticipationsBuyerController {
         col_nameLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_currentPriceLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
         col_betParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("myBet"));
-        col_nameSellerLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>(""));
+        col_nameSellerLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("seller"));
         col_statusLotsParticipationsBuyer.setCellValueFactory(new PropertyValueFactory<>("statusString"));
 
         TableViewParticipationsBuyer.setItems(lotus);

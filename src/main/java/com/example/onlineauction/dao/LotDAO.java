@@ -131,6 +131,7 @@ public class LotDAO {
                 lot.setCategoryId(resultSet.getInt("category_id"));
                 lot.setSellerId(resultSet.getInt("seller_id"));
                 lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
+                lot.setCategory(CategoryDAO.getCategoryById(lot.getCategoryId()));
 
                 lots.add(lot);
             }

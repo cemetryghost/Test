@@ -23,6 +23,7 @@ public class Lot {
     private Date DatepublicationDate;
     private Date DateclosingDate;
     private double myBet;
+    private String seller;
 
     public Lot(int id, String name, String category, double startPrice, double currentPrice, String statusString) {
         this.id = id;
@@ -96,6 +97,12 @@ public class Lot {
 
     public String getName() {
         return name;
+    }
+    public String getSeller(){
+        return seller;
+    }
+    public void setSeller(String seller){
+        this.seller = seller;
     }
 
     public void setName(String name) {
@@ -185,7 +192,10 @@ public class Lot {
     }
 
     public int getCategoryId() {
-        return Integer.parseInt(category);
+        return categoryId;
+    }
+    public void setCategory(String category){
+        this.category = category;
     }
     public int getCategoryIdd(){
         return categoryId;
