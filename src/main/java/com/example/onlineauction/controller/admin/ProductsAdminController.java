@@ -3,6 +3,7 @@ package com.example.onlineauction.controller.admin;
 import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.StatusLot;
+import com.example.onlineauction.controller.seller.ProductsSellerController;
 import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.dao.UserDAO;
@@ -64,7 +65,7 @@ public class ProductsAdminController implements Initializable {
 
     @FXML
     private ComboBox<String> statusLotsComboBox;
-    private Lot lot;
+    public static Lot lot;
     private int id;
     private LotDAO lotDAO;
     Connection connection = DatabaseConnector.ConnectDb();
@@ -105,7 +106,8 @@ public class ProductsAdminController implements Initializable {
 
     @FXML
     void MoreInfoDetailsLots(ActionEvent event) {
-        // Обработчик события просмотра подробной информации о лоте
+        WindowsManager.openWindow("administrator/admin-details.fxml","Детали лота");
+
     }
 
     @Override
@@ -152,6 +154,7 @@ public class ProductsAdminController implements Initializable {
     public void getSelected(MouseEvent mouseEvent) {
         lot = TableViewAdminLots.getSelectionModel().getSelectedItem();
         id = lot.getId();
+        //ProductsSellerController.lot = lot;
         System.out.println(id);
     }
 }

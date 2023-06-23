@@ -83,6 +83,8 @@ public class ProductsSellerController {
     LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
     public static boolean booleanAdd = false;
     public static boolean booleanEdit = false;
+    public static List<Lot> closeLots;
+    private int id;
 
     public ProductsSellerController() throws Exception {
     }
@@ -120,8 +122,10 @@ public class ProductsSellerController {
     }
 
     @FXML
-    void FinishLotsSeller(ActionEvent event) {
-
+    void FinishLotsSeller(ActionEvent event) throws Exception{
+        lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
+        lotDAO.updateLotStatus(id, StatusLot.COMPLETED);
+        update();
     }
 
     @FXML
@@ -156,6 +160,7 @@ public class ProductsSellerController {
     public void getSelected() throws Exception {
         lot = tableViewLotsSeller.getSelectionModel().getSelectedItem();
         lot = lotDAO.getLotById(lot.getId());
+        id = lot.getId();
         System.out.println(lot.Print());
     }
 
@@ -163,12 +168,28 @@ public class ProductsSellerController {
         Connection connection = DatabaseConnector.ConnectDb(); // Получаем соединение с базой данных
         LotDAO lotDAO = new LotDAO(connection);
         List<Lot> lotus = new ArrayList<>();
-
+        closeLots = new ArrayList<>();
         if(AuthorizationController.userId != 0){
-            lotus = lotDAO.getLotsBySellerId(AuthorizationController.userId);
+            List<Lot> temp = lotDAO.getLotsBySellerId(AuthorizationController.userId);
+            for(Lot lot : temp){
+                if(!lot.getStatusString().equals("Завершен")){
+                    lotus.add(lot);
+                }
+                else{
+                    closeLots.add(lot);
+                }
+            }
         }
         else if(RegistrationController.registeredUserId != 0){
-            lotus = lotDAO.getLotsBySellerId(RegistrationController.registeredUserId);
+            List<Lot> temp = lotDAO.getLotsBySellerId(RegistrationController.registeredUserId);
+            for(Lot lot : temp){
+                if(!lot.getStatusString().equals("Завершен")){
+                    lotus.add(lot);
+                }
+                else{
+                    closeLots.add(lot);
+                }
+            }
         }
         ObservableList<Lot> lots = FXCollections.observableArrayList(lotus);
 

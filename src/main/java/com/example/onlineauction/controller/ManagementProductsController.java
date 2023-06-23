@@ -241,9 +241,9 @@ public class ManagementProductsController {
         }
         //for(String text : categoryDAO.getAllStringCategories())
         if(lot != null){
-            for(; index < categoryDAO.getAllStringCategories().size(); index++){
+            for(; index < categoryDAO.getAllStringCategories().size() - 1; index++){
                 String text = categoryDAO.getAllCategoriesList().get(index).getName();
-                String result = CategoryDAO.getCategoryById(lot.getCategoryId());
+                String result = CategoryDAO.getCategoryById(Integer.parseInt(lot.getCategory()));
                 if(text.equals(result)){
                     break;
                 }
@@ -253,7 +253,6 @@ public class ManagementProductsController {
         }
 
         categoryComboBox.setItems(categoryDAO.getAllCategoriesObservable());
-
 
 //        try {
 //            Connection connection = DatabaseConnector.ConnectDb(); // Получаем подключение к базе данных

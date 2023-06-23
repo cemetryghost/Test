@@ -24,7 +24,7 @@ public class Lot {
     private Date DateclosingDate;
     private double myBet;
     private String seller;
-
+    private String buyer;
     public Lot(int id, String name, String category, double startPrice, double currentPrice, String statusString) {
         this.id = id;
         this.name = name;
@@ -94,7 +94,12 @@ public class Lot {
     public String getDatepublicationDate(){
         return DatepublicationDate.toString();
     }
-
+    public String getBuyer(){
+        return buyer;
+    }
+    public void setBuyer(String buyer){
+        this.buyer = buyer;
+    }
     public String getName() {
         return name;
     }

@@ -1,6 +1,8 @@
 package com.example.onlineauction.dao;
 
+import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.model.Bid;
+import com.example.onlineauction.model.Lot;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,13 +28,14 @@ public class BidDAO {
             statement.executeUpdate();
         }
     }
-    public boolean existBidByIdLot(int idLot) throws Exception{
+    public boolean existBidByIdLot(int idLot, int idUser) throws Exception{
         boolean result;
         int id = 0;
 
-        String query = "select idbids from bids where lot_id=?";
+        String query = "select idbids from bids where lot_id=? and buyer_id=?";
         try(PreparedStatement statement = connection.prepareStatement(query)){
             statement.setInt(1, idLot);
+            statement.setInt(2, idUser);
             try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()){
                     id = resultSet.getInt("idbids");
@@ -105,5 +108,19 @@ public class BidDAO {
             }
         }
         return result;
+    }
+    public List<Lot> getLotsByBuyerid(int id) throws Exception{
+        LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
+        List<Lot> lots = new ArrayList<>();
+        String query = "select lot_id from bids where buyer_id=?";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setInt(1, id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    lots.add(lotDAO.getLotById(resultSet.getInt("lot_id")));
+                }
+            }
+        }
+        return lots;
     }
 }

@@ -9,6 +9,7 @@ import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.WindowsManager;
 import com.example.onlineauction.constants.Role;
 import com.example.onlineauction.controller.authentication.AuthorizationController;
+import com.example.onlineauction.controller.authentication.RegistrationController;
 import com.example.onlineauction.controller.buyer.ProductsBuyerController;
 import com.example.onlineauction.controller.seller.ProductsSellerController;
 import com.example.onlineauction.dao.BidDAO;
@@ -101,11 +102,18 @@ public class DetailProductsController implements Initializable {
     @FXML
     void BuyerBet(ActionEvent event) throws Exception{
         double bet = Double.parseDouble(buyerBettingField.getText());
-        if(bidDAO.existBidByIdLot(lot.getId())){
+        int id = 0;
+        if(AuthorizationController.userId == 0){
+            id = RegistrationController.registeredUserId;
+        }
+        else{
+            id = AuthorizationController.userId;
+        }
+        if(bidDAO.existBidByIdLot(lot.getId(), id)){
             bidDAO.setBidAmountByIdLot(lot.getId(), bet);
         }
         else{
-            Bid bid = new Bid(lot.getId(), AuthorizationController.userId, bet);
+            Bid bid = new Bid(lot.getId(), id, bet);
             bidDAO.addBid(bid);
         }
 
@@ -124,7 +132,7 @@ public class DetailProductsController implements Initializable {
             nameLotsLabel.setText(lot.getName());
             descriptionLotsLabel.setText(lot.getDescription());
             sellerLotsLabel.setText(userDAO.getNameAndSurnameById(lot.getSellerId()));
-            categoryLotsLabel.setText(CategoryDAO.getCategoryById(lot.getCategoryId()));
+            categoryLotsLabel.setText(CategoryDAO.getCategoryById(Integer.parseInt(lot.getCategory())));
             startPriceLotsLabel.setText(String.valueOf(lot.getStartPrice()));
             stepPriceLotsLabel.setText(String.valueOf(lot.getStepPrice()));
             dateLotsLabel.setText(lot.getDatepublicationDate());

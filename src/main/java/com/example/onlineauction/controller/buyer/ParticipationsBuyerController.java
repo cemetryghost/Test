@@ -4,8 +4,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.example.onlineauction.DatabaseConnector;
+import com.example.onlineauction.controller.authentication.AuthorizationController;
+import com.example.onlineauction.dao.BidDAO;
 import com.example.onlineauction.dao.CategoryDAO;
 import com.example.onlineauction.dao.UserDAO;
+import com.example.onlineauction.model.Bid;
 import com.example.onlineauction.model.Category;
 import com.example.onlineauction.model.Lot;
 import javafx.collections.FXCollections;
@@ -62,7 +65,9 @@ public class ParticipationsBuyerController {
 
         ObservableList<Lot> lotus = FXCollections.observableArrayList();
         UserDAO userDAO = new UserDAO(DatabaseConnector.ConnectDb());
-        for(Lot lot : ProductsBuyerController.lots){
+        BidDAO bidDAO = new BidDAO(DatabaseConnector.ConnectDb());
+        for(Lot lot : bidDAO.getLotsByBuyerid(AuthorizationController.userId)){
+            lot.setMyBet(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId));
             if(lot.getMyBet() != 0){
                 lot.setSeller(userDAO.getNameAndSurnameById(lot.getSellerId()));
                 lotus.add(lot);

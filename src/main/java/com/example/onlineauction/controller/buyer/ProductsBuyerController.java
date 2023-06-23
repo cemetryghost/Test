@@ -131,7 +131,7 @@ public class ProductsBuyerController {
     public void getSelected() throws Exception{
         ProductsSellerController.lot = TableViewLotsBuyer.getSelectionModel().getSelectedItem();
         ProductsSellerController.lot = lotDAO.getLotById(ProductsSellerController.lot.getId());
-      System.out.println();
+      System.out.println(ProductsSellerController.lot.getId());
     }
     public void update() throws Exception{
         connection = DatabaseConnector.ConnectDb(); // Получаем подключение к базе данных
