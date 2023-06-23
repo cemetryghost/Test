@@ -240,17 +240,19 @@ public class ManagementProductsController {
             conditionField.setText(lot.getCondition());
         }
         //for(String text : categoryDAO.getAllStringCategories())
-        for(; index < categoryDAO.getAllStringCategories().size(); index++){
-            String text = categoryDAO.getAllCategoriesList().get(index).getName();
-            String result = CategoryDAO.getCategoryById(lot.getCategoryId());
-            if(text.equals(result)){
-                break;
+        if(lot != null){
+            for(; index < categoryDAO.getAllStringCategories().size(); index++){
+                String text = categoryDAO.getAllCategoriesList().get(index).getName();
+                String result = CategoryDAO.getCategoryById(lot.getCategoryId());
+                if(text.equals(result)){
+                    break;
+                }
             }
+            Category category = categoryDAO.getAllCategoriesList().get(index);
+            categoryComboBox.setValue(category);
         }
 
         categoryComboBox.setItems(categoryDAO.getAllCategoriesObservable());
-        Category category = categoryDAO.getAllCategoriesList().get(index);
-        categoryComboBox.setValue(category);
 
 
 //        try {
