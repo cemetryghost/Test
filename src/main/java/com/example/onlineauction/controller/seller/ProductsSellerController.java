@@ -83,6 +83,7 @@ public class ProductsSellerController {
     LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
     public static boolean booleanAdd = false;
     public static boolean booleanEdit = false;
+    public static boolean isAdmin = false;
     public static List<Lot> closeLots;
     private int id;
 

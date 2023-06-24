@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -82,6 +83,9 @@ public class ProductsAdminController implements Initializable {
 
     @FXML
     void EditLots(ActionEvent event) {
+        Stage closeStage = (Stage) editLotsButton.getScene().getWindow();
+        closeStage.close();
+        
         WindowsManager.openWindow("AllUsers/add-edit-products.fxml", "Редактирование лота");
     }
 
@@ -154,7 +158,9 @@ public class ProductsAdminController implements Initializable {
     public void getSelected(MouseEvent mouseEvent) {
         lot = TableViewAdminLots.getSelectionModel().getSelectedItem();
         id = lot.getId();
-        //ProductsSellerController.lot = lot;
+        ProductsSellerController.lot = lot;
+        ProductsSellerController.booleanEdit = true;
+        ProductsSellerController.isAdmin = true;
         System.out.println(id);
     }
 }

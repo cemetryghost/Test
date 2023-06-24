@@ -153,6 +153,6 @@ public class ProductsBuyerController {
         col_betBuyer.setCellValueFactory(new PropertyValueFactory<>("myBet"));
 
         selectCategoriesBuyer.setItems(combo);
-        TableViewLotsBuyer.setItems(lots);
+        //TableViewLotsBuyer.setItems(lots);
     }
 }

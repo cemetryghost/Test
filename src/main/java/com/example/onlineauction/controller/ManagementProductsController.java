@@ -157,9 +157,15 @@ public class ManagementProductsController {
                 Stage stageClose = (Stage) saveButtonManageLots.getScene().getWindow();
                 stageClose.close();
 
-                WindowsManager.openWindow("seller/products-seller.fxml","Окно продавца");
+                if(ProductsSellerController.isAdmin){
+                    WindowsManager.openWindow("administrator/all-products-administrator.fxml", "Окно администратора");
+                }
+                else{
+                    WindowsManager.openWindow("seller/products-seller.fxml", "Окно продавца");
+                }
                 ProductsSellerController.booleanAdd = false;
                 ProductsSellerController.booleanEdit = false;
+                ProductsSellerController.isAdmin = false;
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -211,7 +217,11 @@ public class ManagementProductsController {
                 Stage stageClose = (Stage) saveButtonManageLots.getScene().getWindow();
                 stageClose.close();
 
-                WindowsManager.openWindow("seller/products-seller.fxml","Окно продавца");
+                if(ProductsSellerController.isAdmin){
+                    WindowsManager.openWindow("administrator/all-products-administrator.fxml", "Окно администратора");
+                } else{
+                    WindowsManager.openWindow("seller/products-seller.fxml","Окно продавца");
+                }
                 ProductsSellerController.booleanAdd = false;
                 ProductsSellerController.booleanEdit = false;
             } catch (Exception exception){
@@ -225,6 +235,8 @@ public class ManagementProductsController {
     void initialize() throws Exception {
         int index = 0;
         if(lot != null){
+            lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
+            lot = lotDAO.getLotById(lot.getId());
             nameLotsField.setText(lot.getName());
             descriptionLotsArea.setText(lot.getDescription());
             startPriceField.setText(String.valueOf(lot.getStartPrice()));
