@@ -3,6 +3,8 @@ package com.example.onlineauction.controller.seller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.example.onlineauction.DatabaseConnector;
+import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.model.Lot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +35,7 @@ public class FinishesLotsSellerController {
     private TableColumn<Lot, String> col_categoryLotsFinish;
 
     @FXML
-    private TableColumn<?, ?> col_finalStatusLotsFinish;
+    private TableColumn<Lot, String> col_finalStatusLotsFinish;
 
     @FXML
     private TableColumn<Lot, String> col_nameBuyerLotsFinish;
@@ -42,7 +44,9 @@ public class FinishesLotsSellerController {
     private TableColumn<Lot, String> col_nameLotsFinish;
 
     @FXML
-    void initialize() {
+    void initialize() throws Exception{
+        LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
+        ProductsSellerController.closeLots = lotDAO.getInactiveLots();
 //        assert AnchorPaneWinningSeller != null : "fx:id=\"AnchorPaneWinningSeller\" was not injected: check your FXML file 'finish-products-seller.fxml'.";
 //        assert TableViewFinishesLots != null : "fx:id=\"TableViewFinishesLots\" was not injected: check your FXML file 'finish-products-seller.fxml'.";
 //        assert col_PriceLotsFinish != null : "fx:id=\"col_PriceLotsFinish\" was not injected: check your FXML file 'finish-products-seller.fxml'.";
@@ -53,7 +57,7 @@ public class FinishesLotsSellerController {
         col_nameLotsFinish.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_categoryLotsFinish.setCellValueFactory(new PropertyValueFactory<>("category"));
         col_PriceLotsFinish.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
-        col_nameBuyerLotsFinish.setCellValueFactory(new PropertyValueFactory<>(""));
+        col_nameBuyerLotsFinish.setCellValueFactory(new PropertyValueFactory<>("seller"));
         col_finalStatusLotsFinish.setCellValueFactory(new PropertyValueFactory<>("statusString"));
 
         ObservableList<Lot> lots = FXCollections.observableArrayList(ProductsSellerController.closeLots);

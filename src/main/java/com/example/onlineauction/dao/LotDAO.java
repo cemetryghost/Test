@@ -207,6 +207,7 @@ public class LotDAO {
                 lot.setCategoryId(resultSet.getInt("category_id"));
                 lot.setSellerId(resultSet.getInt("seller_id"));
                 lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
+                lot.setCategory(CategoryDAO.getCategoryById(lot.getCategoryId()));
 
                 if(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId) != 0 && AuthorizationController.userId != 0){
                     lot.setMyBet(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId));
@@ -215,7 +216,45 @@ public class LotDAO {
                 } else{
                     lot.setMyBet(0);
                 }
+                lots.add(lot);
+            }
+        }
 
+        return lots;
+    }
+
+    public List<Lot> getInactiveLots() throws Exception {
+        List<Lot> lots = new ArrayList<>();
+        BidDAO bidDAO = new BidDAO(connection);
+        String query = "SELECT * FROM lots WHERE status_lots = 'Завершен'";
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                Lot lot = new Lot();
+                lot.setId(resultSet.getInt("idlots"));
+                lot.setName(resultSet.getString("name_lots"));
+                lot.setDescription(resultSet.getString("description_lots"));
+                lot.setStartPrice(resultSet.getDouble("start_price"));
+                lot.setCurrentPrice(resultSet.getDouble("current_price"));
+                lot.setStepPrice(resultSet.getDouble("step_price"));
+                lot.setPublicationDate(resultSet.getString("publication_date"));
+                lot.setClosingDate(resultSet.getString("closing_date"));
+                lot.setCondition(resultSet.getString("condition_lots"));
+                lot.setStatusString(resultSet.getString("status_lots"));
+                lot.setCategoryId(resultSet.getInt("category_id"));
+                lot.setSellerId(resultSet.getInt("seller_id"));
+                lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
+                lot.setCategory(CategoryDAO.getCategoryById(lot.getCategoryId()));
+
+
+                if(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId) != 0 && AuthorizationController.userId != 0){
+                    lot.setMyBet(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId));
+                } else if (bidDAO.getBetByLotId(lot.getId(), RegistrationController.registeredUserId) != 0 && RegistrationController.registeredUserId != 0) {
+                    lot.setMyBet(bidDAO.getBetByLotId(lot.getId(), RegistrationController.registeredUserId));
+                } else{
+                    lot.setMyBet(0);
+                }
                 lots.add(lot);
             }
         }

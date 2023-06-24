@@ -25,6 +25,7 @@ public class Lot {
     private double myBet;
     private String seller;
     private String buyer;
+    private String winner = "Unknown";
     public Lot(int id, String name, String category, double startPrice, double currentPrice, String statusString) {
         this.id = id;
         this.name = name;
@@ -104,12 +105,21 @@ public class Lot {
         return name;
     }
     public String getSeller(){
-        return seller;
+        if(seller == null){
+            return "Unknown";
+        } else {
+            return seller;
+        }
     }
     public void setSeller(String seller){
         this.seller = seller;
     }
-
+    public String getWinner(){
+        return winner;
+    }
+    public void setWinner(String winner){
+        this.winner = winner;
+    }
     public void setName(String name) {
         this.name = name;
     }

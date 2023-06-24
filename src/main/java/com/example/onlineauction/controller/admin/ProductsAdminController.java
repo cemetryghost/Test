@@ -85,7 +85,7 @@ public class ProductsAdminController implements Initializable {
     void EditLots(ActionEvent event) {
         Stage closeStage = (Stage) editLotsButton.getScene().getWindow();
         closeStage.close();
-        
+
         WindowsManager.openWindow("AllUsers/add-edit-products.fxml", "Редактирование лота");
     }
 
