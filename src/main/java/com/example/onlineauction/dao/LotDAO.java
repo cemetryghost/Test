@@ -1,6 +1,7 @@
 package com.example.onlineauction.dao;
 
 import com.example.onlineauction.controller.authentication.AuthorizationController;
+import com.example.onlineauction.controller.authentication.RegistrationController;
 import com.example.onlineauction.model.Lot;
 import com.example.onlineauction.constants.StatusLot;
 
@@ -207,10 +208,11 @@ public class LotDAO {
                 lot.setSellerId(resultSet.getInt("seller_id"));
                 lot.setCurrentBuyerId(resultSet.getInt("current_buyer_id"));
 
-                if(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId) != 0){
+                if(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId) != 0 && AuthorizationController.userId != 0){
                     lot.setMyBet(bidDAO.getBetByLotId(lot.getId(), AuthorizationController.userId));
-                }
-                else{
+                } else if (bidDAO.getBetByLotId(lot.getId(), RegistrationController.registeredUserId) != 0 && RegistrationController.registeredUserId != 0) {
+                    lot.setMyBet(bidDAO.getBetByLotId(lot.getId(), RegistrationController.registeredUserId));
+                } else{
                     lot.setMyBet(0);
                 }
 

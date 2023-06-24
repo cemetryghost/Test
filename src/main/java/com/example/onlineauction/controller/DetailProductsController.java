@@ -109,6 +109,7 @@ public class DetailProductsController implements Initializable {
         else{
             id = AuthorizationController.userId;
         }
+
         if(bidDAO.existBidByIdLot(lot.getId(), id)){
             bidDAO.setBidAmountByIdLot(lot.getId(), bet);
         }
