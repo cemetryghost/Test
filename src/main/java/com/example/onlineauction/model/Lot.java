@@ -1,6 +1,10 @@
 package com.example.onlineauction.model;
 
+import com.example.onlineauction.DatabaseConnector;
 import com.example.onlineauction.constants.StatusLot;
+import com.example.onlineauction.dao.BidDAO;
+import com.example.onlineauction.dao.LotDAO;
+import com.example.onlineauction.dao.UserDAO;
 
 import java.sql.Date;
 
@@ -104,10 +108,12 @@ public class Lot {
     public String getName() {
         return name;
     }
-    public String getSeller(){
-        if(seller == null){
-            return "Unknown";
-        } else {
+    public String getSeller() throws Exception{
+        UserDAO userDAO = new UserDAO(DatabaseConnector.ConnectDb());
+        if(getCurrentBuyerId() != 0){
+            return userDAO.getNameAndSurnameById(getCurrentBuyerId());
+        }
+        else {
             return seller;
         }
     }

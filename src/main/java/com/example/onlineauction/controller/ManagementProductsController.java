@@ -141,7 +141,7 @@ public class ManagementProductsController {
                 sellerId = userDAO1.getIdByLogin(login);
             }
 
-            int buyerId = 49;
+            int buyerId = 0;
 
             // Создание объекта лота
             Lot lot = new Lot(name, description, startPrice, startPrice, stepPrice, publicationDate.toString(), finishDate.toString(), condition);

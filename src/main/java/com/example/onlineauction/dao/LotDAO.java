@@ -353,4 +353,23 @@ public class LotDAO {
             statement.executeUpdate();
         }
     }
+    public void updateCurrentPriceById(double price, int id) throws Exception{
+        String query = "UPDATE lots set current_price= ? WHERE idlots = ?";
+
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setDouble(1, price);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        }
+    }
+
+    public void updateBuyerIdByLotId(int buyerId, int lotId) throws Exception{
+        String query = "UPDATE lots set current_buyer_id = ? where idlots = ?";
+
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setInt(1, buyerId);
+            statement.setInt(2, lotId);
+            statement.executeUpdate();
+        }
+    }
 }

@@ -14,6 +14,7 @@ import com.example.onlineauction.controller.buyer.ProductsBuyerController;
 import com.example.onlineauction.controller.seller.ProductsSellerController;
 import com.example.onlineauction.dao.BidDAO;
 import com.example.onlineauction.dao.CategoryDAO;
+import com.example.onlineauction.dao.LotDAO;
 import com.example.onlineauction.dao.UserDAO;
 import com.example.onlineauction.model.Bid;
 import com.example.onlineauction.model.Lot;
@@ -21,6 +22,7 @@ import com.example.onlineauction.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -101,6 +103,7 @@ public class DetailProductsController implements Initializable {
 
     @FXML
     void BuyerBet(ActionEvent event) throws Exception{
+        LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
         double bet = Double.parseDouble(buyerBettingField.getText());
         int id = 0;
         if(AuthorizationController.userId == 0){
@@ -110,18 +113,30 @@ public class DetailProductsController implements Initializable {
             id = AuthorizationController.userId;
         }
 
-        if(bidDAO.existBidByIdLot(lot.getId(), id)){
-            bidDAO.setBidAmountByIdLot(lot.getId(), bet);
+        if(bet >= lot.getCurrentPrice() + lot.getStepPrice()){
+            lotDAO.updateCurrentPriceById(bet, lot.getId());
+            lotDAO.updateBuyerIdByLotId(id, lot.getId());
+            if(bidDAO.existBidByIdLot(lot.getId(), id)){
+                bidDAO.setBidAmountByIdLot(lot.getId(), bet);
+                Stage stageClose = (Stage) buyerBettingButton.getScene().getWindow();
+                stageClose.close();
+
+                WindowsManager.openWindow("buyer/products-buyer.fxml","Окно покупателя");
+            }
+            else{
+                Bid bid = new Bid(lot.getId(), id, bet);
+                bidDAO.addBid(bid);
+
+                Stage stageClose = (Stage) buyerBettingButton.getScene().getWindow();
+                stageClose.close();
+
+                WindowsManager.openWindow("buyer/products-buyer.fxml","Окно покупателя");
+            }
         }
         else{
-            Bid bid = new Bid(lot.getId(), id, bet);
-            bidDAO.addBid(bid);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Некорректная ставка");
+            alert.showAndWait();
         }
-
-        Stage stageClose = (Stage) buyerBettingButton.getScene().getWindow();
-        stageClose.close();
-
-        WindowsManager.openWindow("buyer/products-buyer.fxml","Окно покупателя");
     }
 
     @Override
