@@ -102,42 +102,60 @@ public class DetailProductsController implements Initializable {
     }
 
     @FXML
-    void BuyerBet(ActionEvent event) throws Exception{
+    void BuyerBet(ActionEvent event) throws Exception {
         LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
-        double bet = Double.parseDouble(buyerBettingField.getText());
-        int id = 0;
-        if(AuthorizationController.userId == 0){
-            id = RegistrationController.registeredUserId;
+        String betText = buyerBettingField.getText();
+
+        if (betText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Введите ставку!");
+            alert.showAndWait();
+            return;
         }
-        else{
+
+        double bet;
+        try {
+            bet = Double.parseDouble(betText);
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Введите число!");
+            alert.showAndWait();
+            return;
+        }
+
+        int id = 0;
+        if (AuthorizationController.userId == 0) {
+            id = RegistrationController.registeredUserId;
+        } else {
             id = AuthorizationController.userId;
         }
 
-        if(bet >= lot.getCurrentPrice() + lot.getStepPrice()){
+        if (bet >= lot.getCurrentPrice() + lot.getStepPrice()) {
             lotDAO.updateCurrentPriceById(bet, lot.getId());
             lotDAO.updateBuyerIdByLotId(id, lot.getId());
-            if(bidDAO.existBidByIdLot(lot.getId(), id)){
+             // Добавлено обновление current_buyer_id
+
+            if (bidDAO.existBidByIdLot(lot.getId(), id)) {
                 bidDAO.setBidAmountByIdLot(lot.getId(), bet);
                 Stage stageClose = (Stage) buyerBettingButton.getScene().getWindow();
                 stageClose.close();
 
-                WindowsManager.openWindow("buyer/products-buyer.fxml","Окно покупателя");
-            }
-            else{
+                WindowsManager.openWindow("buyer/products-buyer.fxml", "Окно покупателя");
+            } else {
                 Bid bid = new Bid(lot.getId(), id, bet);
                 bidDAO.addBid(bid);
+                lotDAO.updateCurrentBuyerIdByLotId(id, lot.getId());
 
                 Stage stageClose = (Stage) buyerBettingButton.getScene().getWindow();
                 stageClose.close();
 
-                WindowsManager.openWindow("buyer/products-buyer.fxml","Окно покупателя");
+                WindowsManager.openWindow("buyer/products-buyer.fxml", "Окно покупателя");
             }
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Некорректная ставка");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Учитывайте текущую ставку и шаг!");
             alert.showAndWait();
         }
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

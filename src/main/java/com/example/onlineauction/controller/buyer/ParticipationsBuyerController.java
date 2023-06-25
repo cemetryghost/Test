@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.example.onlineauction.DatabaseConnector;
+import com.example.onlineauction.constants.Status;
+import com.example.onlineauction.constants.StatusLot;
 import com.example.onlineauction.controller.authentication.AuthorizationController;
 import com.example.onlineauction.dao.BidDAO;
 import com.example.onlineauction.dao.CategoryDAO;
@@ -13,10 +15,9 @@ import com.example.onlineauction.model.Category;
 import com.example.onlineauction.model.Lot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -35,19 +36,30 @@ public class ParticipationsBuyerController {
     private TableView<Lot> TableViewParticipationsBuyer;
 
     @FXML
-    private TableColumn<?, ?> col_betParticipationsBuyer;
+    private TableColumn<Lot, Double> col_betParticipationsBuyer;
 
     @FXML
-    private TableColumn<?, ?> col_currentPriceLotsParticipationsBuyer;
+    private TableColumn<Lot, Double> col_currentPriceLotsParticipationsBuyer;
 
     @FXML
-    private TableColumn<?, ?> col_nameLotsParticipationsBuyer;
+    private TableColumn<?, String> col_nameLotsParticipationsBuyer;
 
     @FXML
-    private TableColumn<?, ?> col_nameSellerLotsParticipationsBuyer;
+    private TableColumn<Lot, String> col_nameSellerLotsParticipationsBuyer;
 
     @FXML
-    private TableColumn<?, ?> col_statusLotsParticipationsBuyer;
+    private TableColumn<Lot, String> col_statusLotsParticipationsBuyer;
+
+    @FXML
+    private TextField betUpFieldBuyer;
+
+    @FXML
+    private Button upBetBuyer;
+
+    @FXML
+    void UpBetBuyer(ActionEvent event) {
+
+    }
 
     @FXML
     private Label dateTimeField;

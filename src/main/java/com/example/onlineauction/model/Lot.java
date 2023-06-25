@@ -108,14 +108,8 @@ public class Lot {
     public String getName() {
         return name;
     }
-    public String getSeller() throws Exception{
-        UserDAO userDAO = new UserDAO(DatabaseConnector.ConnectDb());
-        if(getCurrentBuyerId() != 0){
-            return userDAO.getNameAndSurnameById(getCurrentBuyerId());
-        }
-        else {
-            return seller;
-        }
+    public String getSeller(){
+        return seller;
     }
     public void setSeller(String seller){
         this.seller = seller;

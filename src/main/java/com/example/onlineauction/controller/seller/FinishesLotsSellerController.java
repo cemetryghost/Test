@@ -9,6 +9,8 @@ import com.example.onlineauction.model.Lot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import com.example.onlineauction.dao.UserDAO;
+import com.example.onlineauction.model.User;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -57,7 +59,7 @@ public class FinishesLotsSellerController {
         col_nameLotsFinish.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_categoryLotsFinish.setCellValueFactory(new PropertyValueFactory<>("category"));
         col_PriceLotsFinish.setCellValueFactory(new PropertyValueFactory<>("currentPrice"));
-        col_nameBuyerLotsFinish.setCellValueFactory(new PropertyValueFactory<>("seller"));
+        col_nameBuyerLotsFinish.setCellValueFactory(new PropertyValueFactory<>("buyerId"));
         col_finalStatusLotsFinish.setCellValueFactory(new PropertyValueFactory<>("statusString"));
 
         ObservableList<Lot> lots = FXCollections.observableArrayList(ProductsSellerController.closeLots);

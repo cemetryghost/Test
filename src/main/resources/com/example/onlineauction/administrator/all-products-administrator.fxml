@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneLotsAdmin" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.admin.ProductsAdminController">
+<AnchorPane fx:id="AnchorPaneLotsAdmin" prefHeight="547.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlineauction.controller.admin.ProductsAdminController">
    <children>
       <Label layoutX="307.0" layoutY="28.0" prefHeight="34.0" prefWidth="79.0" text="Лоты" textFill="#f41111" wrapText="true">
          <font>
@@ -19,11 +19,11 @@
       </Label>
       <TableView fx:id="TableViewAdminLots" layoutX="1.0" layoutY="292.0" onMouseClicked="#getSelected" prefHeight="275.0" prefWidth="679.0" stylesheets="@../../../../style.css">
          <columns>
-            <TableColumn fx:id="col_nameLotsAdmin" prefWidth="143.9999439716339" text="Наименование" />
-            <TableColumn fx:id="col_categoryLotsAdmin" prefWidth="128.0000457763672" text="Категория" />
-            <TableColumn fx:id="col_startPriceLotsAdmin" prefWidth="130.00006103515625" text="Начальная цена" />
-            <TableColumn fx:id="col_currentPriceLotsAdmin" prefWidth="103.33331298828125" text="Текущая цена" />
-            <TableColumn fx:id="col_statusLotsAdmin" prefWidth="174.00003051757812" text="Статус" />
+            <TableColumn fx:id="col_nameLotsAdmin" prefWidth="113.99999737739563" text="Наименование" />
+            <TableColumn fx:id="col_categoryLotsAdmin" prefWidth="116.66663360595703" text="Категория" />
+            <TableColumn fx:id="col_startPriceLotsAdmin" prefWidth="121.33335876464844" text="Начальная цена" />
+            <TableColumn fx:id="col_currentPriceLotsAdmin" prefWidth="116.6666259765625" text="Текущая цена" />
+            <TableColumn fx:id="col_statusLotsAdmin" prefWidth="208.66667683919275" text="Статус" />
          </columns>
       </TableView>
       <Button fx:id="editLotsButton" layoutX="265.0" layoutY="138.0" mnemonicParsing="false" onAction="#EditLots" prefHeight="84.0" prefWidth="229.0" style="-fx-cursor: hand;" stylesheets="@../../../../style.css" text="Редактировать" textAlignment="CENTER" wrapText="true">

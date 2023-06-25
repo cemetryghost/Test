@@ -294,6 +294,16 @@ public class LotDAO {
         return lots;
     }
 
+    public void updateCurrentBuyerIdByLotId(int buyerId, int lotId) throws SQLException {
+        String query = "UPDATE lots SET current_buyer_id = ? WHERE idlots = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, buyerId);
+            statement.setInt(2, lotId);
+            statement.executeUpdate();
+        }
+    }
+
+
     public List<Lot> getLotsBySellerId(int sellerId) throws SQLException{
         List<Lot> lots = new ArrayList<>();
         String query = "SELECT * FROM lots WHERE seller_id = ?";

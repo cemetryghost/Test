@@ -16,7 +16,9 @@ import com.example.onlineauction.controller.DetailProductsController;
 import com.example.onlineauction.controller.ManagementProductsController;
 import com.example.onlineauction.controller.authentication.AuthorizationController;
 import com.example.onlineauction.controller.authentication.RegistrationController;
+import com.example.onlineauction.dao.BidDAO;
 import com.example.onlineauction.dao.LotDAO;
+import com.example.onlineauction.model.Bid;
 import com.example.onlineauction.model.Lot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,7 +82,10 @@ public class ProductsSellerController {
     @FXML
     private TableView<Lot> tableViewLotsSeller;
     public static Lot lot;
+
     LotDAO lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
+
+    BidDAO bidDAO = new BidDAO(DatabaseConnector.ConnectDb());
     public static boolean booleanAdd = false;
     public static boolean booleanEdit = false;
     public static boolean isAdmin = false;
@@ -100,34 +105,66 @@ public class ProductsSellerController {
     }
 
     @FXML
-    void DeleteLotsSeller(ActionEvent event) throws Exception{
-        int id = lot.getId();
-        lotDAO.delete(id);
+    void DeleteLotsSeller(ActionEvent event) throws Exception {
+        if (ProductsSellerController.lot != null) {
+            Lot selectedLot = tableViewLotsSeller.getSelectionModel().getSelectedItem();
 
-        update();
+            // Проверяем, есть ли ставки отличные от фиктивного покупателя
+            if (hasValidBids(selectedLot)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Удаление запрещено! Покупатель сделал ставку!");
+                alert.showAndWait();
+                return;
+            }
+
+            int id = selectedLot.getId();
+            lotDAO.delete(id);
+
+            update();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Элемент не выбран");
+            alert.showAndWait();
+        }
     }
 
     @FXML
-    void EditLotsSeller(ActionEvent event) {
-        if(ProductsSellerController.lot != null) {
-            Stage stageClose = (Stage) editLotsSeller.getScene().getWindow();
-            stageClose.close();
+    void EditLotsSeller(ActionEvent event) throws SQLException {
+        if (ProductsSellerController.lot != null) {
+            Lot selectedLot = tableViewLotsSeller.getSelectionModel().getSelectedItem();
 
-            WindowsManager.openWindow("AllUsers/add-edit-products.fxml","Редактирование лота");
-            booleanEdit = true;
+            // Проверяем, есть ли ставки отличные от фиктивного покупателя
+            if (hasValidBids(selectedLot)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Редатикрование запрещено! Покупатель сделал ставку!");
+                alert.showAndWait();
+                return;
+            }
+
+            WindowsManager.openWindow("AllUsers/add-edit-products.fxml", "Редактирование лота");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Элемент не выбран");
+            alert.showAndWait();
         }
-        else{
-           Alert alert = new Alert(Alert.AlertType.ERROR, "Элемент не выбран");
-           alert.showAndWait();
+    }
+    private boolean hasValidBids(Lot lot) throws SQLException {
+        // Получаем ставки для указанного лота
+        List<Bid> bids = bidDAO.getBidsByLotId(lot.getId());
+
+        // Проверяем наличие ставок отличных от фиктивного покупателя "unknown"
+        for (Bid bid : bids) {
+            if (bid.getBuyerId() != 49) {
+                return true;
+            }
         }
+
+        return false;
     }
 
     @FXML
-    void FinishLotsSeller(ActionEvent event) throws Exception{
+    void FinishLotsSeller(ActionEvent event) throws Exception {
         lotDAO = new LotDAO(DatabaseConnector.ConnectDb());
         lotDAO.updateLotStatus(id, StatusLot.COMPLETED);
         update();
     }
+
 
     @FXML
     void MoreInfoDetailsLots(ActionEvent event) throws IOException {

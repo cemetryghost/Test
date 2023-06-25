@@ -98,7 +98,7 @@ public class ManagementProductsController {
         Stage currentStage = (Stage) backButtonManageLots.getScene().getWindow();
         currentStage.close();
     }
-    UserDAO userDAO1 = new UserDAO(DriverManager.getConnection("jdbc:mysql://localhost:3306/auction?serverTimezone=Europe/Moscow", "root", "12345"));
+    UserDAO userDAO1 = new UserDAO(DriverManager.getConnection("jdbc:mysql://localhost:3306/auction", "root", "6778"));
     @FXML
     void SaveManageLots(ActionEvent event) throws Exception {
         if(ProductsSellerController.booleanAdd){
@@ -141,7 +141,7 @@ public class ManagementProductsController {
                 sellerId = userDAO1.getIdByLogin(login);
             }
 
-            int buyerId = 0;
+            int buyerId = 49;
 
             // Создание объекта лота
             Lot lot = new Lot(name, description, startPrice, startPrice, stepPrice, publicationDate.toString(), finishDate.toString(), condition);
